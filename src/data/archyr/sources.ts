@@ -17,7 +17,7 @@ export const sourceItems: SourceItem[] = [
     title: "LangGraph durable execution",
     category: "primary",
     tags: ["workflow", "durability", "stateful graph"],
-    link: "https://www.langgraph.com/",
+    link: "https://www.langchain.com/langgraph",
     note: "Chosen as the durable workflow spine for long-running diligence processes and resumable states.",
   },
   {
