@@ -17,7 +17,7 @@ export const sourceItems: SourceItem[] = [
     title: "LangGraph durable execution",
     category: "primary",
     tags: ["workflow", "durability", "stateful graph"],
-    link: "https://www.langgraph.com/",
+    link: "https://www.langchain.com/langgraph",
     note: "Chosen as the durable workflow spine for long-running diligence processes and resumable states.",
   },
   {
@@ -66,14 +66,14 @@ export const sourceItems: SourceItem[] = [
     title: "Kuzu",
     category: "pattern",
     tags: ["graph", "relationship traversal"],
-    link: "https://kuzudb.com/",
+    link: "https://github.com/kuzudb/kuzu",
     note: "Candidate for relationship traversal when founder/investor/customer graph patterns become recurrent.",
   },
   {
     title: "Neo4j GraphRAG",
     category: "pattern",
     tags: ["graph", "RAG", "relationships"],
-    link: "https://neo4j.com/docs/genai-concepts/graphrag/",
+    link: "https://neo4j.com/docs/neo4j-graphrag-python/current/",
     note: "Candidate if hybrid graph + retrieval patterns consistently outperform pure relational joins.",
   },
   {
