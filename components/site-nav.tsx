@@ -50,7 +50,7 @@ export function SiteNav() {
               aria-current={activeId === section.id ? "true" : "false"}
               className={`inline-flex shrink-0 rounded-full px-3 py-1.5 text-xs font-semibold tracking-wide transition ${
                 activeId === section.id
-                  ? "bg-[var(--accent)] text-white"
+                  ? "bg-[var(--accent)] border border-[var(--accent)]/70 text-white"
                   : "border border-[var(--line)] text-[var(--muted)] hover:border-[var(--accent)] hover:text-[var(--text)]"
               }`}
             >

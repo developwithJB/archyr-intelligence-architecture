@@ -37,7 +37,9 @@ export default function ArchitectureRoutes() {
                   key={route.id}
                   onClick={() => setActiveRoute(route.id)}
                   className={`rounded-2xl border border-[var(--line)] text-left transition ${
-                    isActive ? "border-[var(--accent)] bg-[var(--accent-soft)]/40" : "bg-[var(--surface)]"
+                    isActive
+                      ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--text)]"
+                      : "bg-[var(--surface)]"
                   }`}
                 >
                   <CardContent>

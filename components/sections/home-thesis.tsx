@@ -27,7 +27,7 @@ export default function HomeThesis() {
           <div className="flex flex-wrap gap-2">
             <Link
               href="#architecture-routes"
-              className="rounded-full bg-[var(--accent)] px-4 py-2 text-sm text-white transition hover:brightness-95"
+              className="rounded-full border border-[var(--accent)] bg-[var(--accent)] px-4 py-2 text-sm text-white transition hover:bg-[var(--accent)]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
             >
               Open architecture routes
             </Link>
@@ -89,7 +89,7 @@ export default function HomeThesis() {
         ) : null}
         <Badge
           variant="warning"
-          className="border-[var(--line)] bg-[var(--surface-muted)] text-[var(--muted)]"
+          className="border-[var(--line)] bg-[var(--surface-muted)]"
         >
           Version 1 shipped before Monday call. Final polish and source hardening before Friday submission.
         </Badge>
