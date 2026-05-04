@@ -42,12 +42,12 @@ export default function SourcesNotes() {
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             {(["all", "primary", "reference", "pattern"] as const).map((entry) => (
-              <button
-                key={entry}
-                type="button"
-                className={`rounded-full border px-3 py-1 text-xs ${
-                  selectedCategory === entry
-                    ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--accent)]"
+                <button
+                  key={entry}
+                  type="button"
+                  className={`rounded-full border px-3 py-1 text-xs ${
+                    selectedCategory === entry
+                    ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--accent)] shadow-sm"
                     : "border-[var(--line)]"
                 }`}
                 onClick={() => setSelectedCategory(entry as "all" | SourceItem["category"])}

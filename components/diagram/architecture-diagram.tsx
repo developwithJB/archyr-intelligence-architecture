@@ -34,7 +34,9 @@ export function ArchitectureDiagram({
           type="button"
           onClick={() => setFilter("all")}
           className={`rounded-full px-3 py-1 text-xs font-semibold ${
-            filter === "all" ? "bg-[var(--accent)] text-white" : "bg-[var(--surface-muted)]"
+            filter === "all"
+              ? "border border-[var(--accent)] bg-[var(--accent)] text-white"
+              : "bg-[var(--surface-muted)] text-[var(--text)]"
           }`}
         >
           All
@@ -44,8 +46,8 @@ export function ArchitectureDiagram({
           onClick={() => setFilter("workflow")}
           className={`rounded-full px-3 py-1 text-xs font-semibold ${
             filter === "workflow"
-              ? "bg-[var(--accent)] text-white"
-              : "bg-[var(--surface-muted)]"
+              ? "border border-[var(--accent)] bg-[var(--accent)] text-white"
+              : "bg-[var(--surface-muted)] text-[var(--text)]"
           }`}
         >
           Workflow
@@ -55,8 +57,8 @@ export function ArchitectureDiagram({
           onClick={() => setFilter("memory")}
           className={`rounded-full px-3 py-1 text-xs font-semibold ${
             filter === "memory"
-              ? "bg-[var(--accent)] text-white"
-              : "bg-[var(--surface-muted)]"
+              ? "border border-[var(--accent)] bg-[var(--accent)] text-white"
+              : "bg-[var(--surface-muted)] text-[var(--text)]"
           }`}
         >
           Memory

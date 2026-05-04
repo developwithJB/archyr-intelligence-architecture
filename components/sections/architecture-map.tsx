@@ -63,15 +63,15 @@ export default function ArchitectureMap() {
                     <div className="flex min-w-[820px] items-center gap-2">
                       {architectureMapNodes.map((node, index) => (
                         <div key={node.id} className="flex items-center gap-2">
-                          <button
-                            type="button"
-                            onClick={() => setActiveNodeId(node.id)}
-                            className={`min-w-40 rounded-xl border p-3 text-left transition ${
-                              activeNodeId === node.id
-                                ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--accent)]"
+                        <button
+                          type="button"
+                          onClick={() => setActiveNodeId(node.id)}
+                          className={`min-w-40 rounded-xl border p-3 text-left transition ${
+                            activeNodeId === node.id
+                                ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--text)]"
                                 : "border-[var(--line)] bg-[var(--surface-muted)]"
-                            }`}
-                          >
+                          }`}
+                        >
                             <p className="text-xs font-semibold text-[var(--text)]">{node.title}</p>
                           </button>
                           {index < architectureMapNodes.length - 1 ? (
@@ -93,7 +93,7 @@ export default function ArchitectureMap() {
                         onClick={() => setActiveNodeId(node.id)}
                         className={`w-full rounded-xl border p-3 text-left transition ${
                           activeNodeId === node.id
-                            ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--accent)]"
+                            ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--text)]"
                             : "border-[var(--line)] bg-[var(--surface-muted)]"
                         }`}
                       >
