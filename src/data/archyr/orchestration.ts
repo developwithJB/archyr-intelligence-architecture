@@ -378,6 +378,70 @@ export const orchestrationComparisons: OrchestrationComparison[] = [
     verdict: "Avoid as core.",
     recommended: false,
   },
+  {
+    id: "orchestrate-superpowers",
+    name: "Superpowers",
+    fit: "Meta-framework for packaging reusable capabilities across tools and prompts.",
+    whyWorks: [
+      "Useful for packaging repeatable capability wrappers and local tooling conventions.",
+      "De-risks copy/paste behavior around skill invocation.",
+    ],
+    whyNotAsCore: [
+      "Limited durable orchestration support for multi-day diligence state.",
+      "Weak under load because retries, resumability, and audit boundaries are externalized.",
+      "Less useful for high-stakes VC workflows where every merge decision needs explicit review control.",
+    ],
+    verdict: "Defer.",
+    recommended: false,
+  },
+  {
+    id: "orchestrate-harness",
+    name: "Harness",
+    fit: "Workflow and task framework intended for general automation and execution plumbing.",
+    whyWorks: [
+      "Good at stitching non-AI tasks with deterministic runs.",
+      "Strong for predictable process automation in non-diligence surfaces.",
+    ],
+    whyNotAsCore: [
+      "Missing the agent-contract granularity we need for LLM handoffs.",
+      "Breaks where VC workflows demand evidence-anchored model decisions, not just task dispatch.",
+      "Harder to map to human override gates without a dedicated long-running agent graph.",
+    ],
+    verdict: "Defer.",
+    recommended: false,
+  },
+  {
+    id: "orchestrate-archon",
+    name: "Archon",
+    fit: "Knowledge-centric platform pattern for memory and context orchestration.",
+    whyWorks: [
+      "Useful for organizing and exposing project context.",
+      "Can reduce startup boilerplate around context hydration.",
+    ],
+    whyNotAsCore: [
+      "Context hydration itself is insufficient without durable route-level checkpoints.",
+      "Can drift from canonical evidence contracts under parallel context growth.",
+      "Not ideal as first layer for two-person teams maintaining VC memory and approvals.",
+    ],
+    verdict: "Defer.",
+    recommended: false,
+  },
+  {
+    id: "orchestrate-ecc",
+    name: "ECC",
+    fit: "Event/call-control oriented harness pattern for tool choreography.",
+    whyWorks: [
+      "Strong where deterministic execution and event boundaries are the main need.",
+      "Clean mental model for call-level tracing.",
+    ],
+    whyNotAsCore: [
+      "Lacks native handling for evidence-heavy LLM arbitration across long memory lifecycles.",
+      "Under multi-context pressure, failure isolation and merge semantics are weaker than a workflow graph.",
+      "Adds unnecessary indirection for a team that already needs durable graph-like orchestration.",
+    ],
+    verdict: "Defer.",
+    recommended: false,
+  },
 ];
 
 export const coordinationPatterns: CoordinationPattern[] = [
@@ -428,28 +492,28 @@ export const coordinationPatterns: CoordinationPattern[] = [
 export const decisionRules: DecisionRule[] = [
   {
     type: "Tool",
-    meaning: "Deterministic operation.",
+    meaning: "Tool = deterministic operation",
     detail:
       "Use tools for repeatable, auditable operations that do not require model judgment in every step.",
   },
   {
     type: "MCP server",
-    meaning: "Connector to external or internal system.",
+    meaning: "MCP server = connector to external or internal system",
     detail: "Every integration boundary should be an MCP-exposed operation with consistent auth and payload semantics.",
   },
   {
     type: "Skill",
-    meaning: "Reusable domain SOP.",
+    meaning: "Skill = reusable domain SOP",
     detail: "Skills define reusable playbooks for repeatable diligence behavior.",
   },
   {
     type: "Subagent",
-    meaning: "Isolated model worker with narrow role and summary-only return.",
+    meaning: "Subagent = isolated model worker with narrow role and summary-only return",
     detail: "Keep returned state minimal, explicit, and auditable.",
   },
   {
     type: "Workflow node",
-    meaning: "Anything durable, auditable, retryable, or gated.",
+    meaning: "Workflow node = anything durable, auditable, retryable, or gated",
     detail:
       "Long-lived and review-heavy behavior must live in durable workflow nodes rather than freeform chats.",
   },

@@ -1,7 +1,15 @@
 import { SectionShell } from "@/components/section-shell";
 import { Accordion } from "@/components/ui/accordion";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
-import { evalTooling, trustDimensions, evalRoadmap, hardAndSoftGates, evaluationRecommendation, evalIntegrityWarning } from "@/src/data/archyr/evaluation";
+import {
+  evalTooling,
+  trustDimensions,
+  evalRoadmap,
+  hardAndSoftGates,
+  evaluationRecommendation,
+  evalIntegrityWarning,
+  evalTraps,
+} from "@/src/data/archyr/evaluation";
 
 export default function EvalTrust() {
   return (
@@ -10,6 +18,15 @@ export default function EvalTrust() {
       title="Evaluation & Trust"
       subtitle="Quality and safety as explicit infrastructure."
     >
+      <Card className="mb-4 border-[var(--accent)]/30 bg-[var(--surface-muted)]">
+        <CardContent>
+          <CardTitle>Trust posture</CardTitle>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            Evals are not a sidecar. They are product trust infrastructure.
+          </p>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardContent>
           <CardTitle>Quality contract</CardTitle>
@@ -92,6 +109,22 @@ export default function EvalTrust() {
           <p className="mt-3 text-xs text-[var(--muted)]">
             Observability stack: <strong className="text-[var(--text)]">{evalTooling.join(" + ")}</strong>
           </p>
+        </CardContent>
+      </Card>
+
+      <Card className="mt-4">
+        <CardContent>
+          <CardTitle>Evaluation traps to watch</CardTitle>
+          <ul className="mt-2 list-disc space-y-2 pl-5 text-sm text-[var(--muted)]">
+            {evalTraps.length === 0 ? (
+              <li className="text-[var(--muted)]">No guardrail traps are currently configured.</li>
+            ) : null}
+            {evalTraps.map((trap) => (
+              <li key={trap.title}>
+                <span className="font-semibold text-[var(--text)]">{trap.title}:</span> {trap.body}
+              </li>
+            ))}
+          </ul>
         </CardContent>
       </Card>
     </SectionShell>

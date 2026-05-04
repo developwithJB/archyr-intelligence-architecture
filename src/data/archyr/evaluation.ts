@@ -25,9 +25,22 @@ export interface EvalRecommendation {
   text: string;
 }
 
+export interface EvaluationTrap {
+  title: string;
+  body: string;
+}
+
 export const evaluationRecommendation: EvalRecommendation = {
   text: "Treat evals as trust infrastructure.",
 };
+
+export const evalTraps: EvaluationTrap[] = [
+  {
+    title: "The 95% eval but subtly wrong trap",
+    body:
+      "A workflow can pass broad eval sets while still shipping wrong partner-facing outputs if citation discipline, unsupported claims, and merge safety are not in the test set.",
+  },
+];
 
 export const trustDimensions: TrustDimension[] = [
   {
@@ -168,5 +181,6 @@ export const hardAndSoftGates: GatePolicy[] = [
 
 export const evalIntegrityWarning = {
   title: "Avoid fake eval confidence",
-  body: "Seed evals from real partner edits, rejected memo sections, and production traces. Synthetic tests alone are insufficient because they can miss subtle investment-critical errors.",
+  body:
+    "Seed evals from real partner edits, rejected memo sections, and production traces. Synthetic tests alone are insufficient because they can miss subtle investment-critical errors.",
 };

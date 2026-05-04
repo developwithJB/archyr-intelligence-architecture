@@ -38,7 +38,7 @@ export default function SourcesNotes() {
         <div className="rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3">
           <p className="text-xs uppercase tracking-widest text-[var(--accent)]">Sources</p>
           <p className="mt-1 text-sm text-[var(--muted)]">
-            Editable source cards. Edits are local to this session view.
+            Primary references used to shape framework, retrieval, memory, and evaluation decisions.
           </p>
           <div className="mt-3 flex flex-wrap gap-2">
             {(["all", "primary", "reference", "pattern"] as const).map((entry) => (
@@ -68,7 +68,7 @@ export default function SourcesNotes() {
               return (
                 <Card key={`${item.title}-${sourceIndex}`}>
                   <CardContent>
-                    <CardTitle>Editable source card</CardTitle>
+                    <CardTitle>Research reference</CardTitle>
                     <div className="mt-3 space-y-2 text-sm">
                       <label className="grid gap-1">
                         <span className="text-xs text-[var(--muted)]">Title</span>

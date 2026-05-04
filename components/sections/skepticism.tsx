@@ -11,6 +11,15 @@ import {
 export default function Skepticism() {
   return (
     <SectionShell id="skepticism" title="Skepticism" subtitle="Hard objections, hard mitigations.">
+      <Card className="mb-4 border-[var(--warning)]/30 bg-[var(--surface-muted)]">
+        <CardContent>
+          <CardTitle>Section stance</CardTitle>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            Overhyped: chain-of-agents without eval gates. Underrated: evidence contracts.
+          </p>
+        </CardContent>
+      </Card>
+
       <div className="grid gap-3">
         {skepticalChecks.map((check) => (
           <Card key={check.title}>

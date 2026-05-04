@@ -27,7 +27,7 @@ export default function ArchitectureMap() {
             const toLabel = architectureMapNodes.find((node) => node.id === edge.to)?.title ?? edge.to;
             return `${fromLabel} → ${toLabel}`;
           }),
-    [activeNodeId],
+    [],
   );
 
   return (
@@ -36,6 +36,16 @@ export default function ArchitectureMap() {
       title="Architecture Map"
       subtitle="Interactive flow from input to governance, tuned for bounded, auditable diligence workflows."
     >
+      <Card className="mb-4 border-[var(--accent)]/30 bg-[var(--surface-muted)]">
+        <CardContent>
+          <CardTitle>Decoupling note</CardTitle>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            The KnowledgeGateway is the key decoupling layer. Agents ask business-level questions. The gateway owns storage
+            shape, permissions, retrieval strategy, freshness, and provenance.
+          </p>
+        </CardContent>
+      </Card>
+
       <div className="grid gap-4 lg:grid-cols-[1.1fr_1fr]">
         <Card>
           <CardContent>

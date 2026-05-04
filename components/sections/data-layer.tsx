@@ -8,6 +8,7 @@ import {
   graphWhereItWins,
   graphWhereOverkill,
   dataLayerRecommendation,
+  mvpVsFutureState,
 } from "@/src/data/archyr/dataLayer";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,6 +31,20 @@ export default function DataLayer() {
           ))}
         </ul>
       </div>
+
+      <Card className="mb-4">
+        <CardContent>
+          <CardTitle>MVP vs future state</CardTitle>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--muted)]">
+            {mvpVsFutureState.map((item) => (
+              <li key={item.phase}>
+                <span className="font-semibold text-[var(--text)]">{item.phase}:</span>{" "}
+                {item.instruction}
+              </li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
 
       <div className="mb-4 rounded-xl border border-[var(--line)] bg-[var(--surface)] p-3 text-sm text-[var(--muted)]">
         <p className="text-[var(--text)] font-semibold">Biggest failure mode to prevent</p>
@@ -89,7 +104,7 @@ export default function DataLayer() {
 
         <Card>
           <CardContent>
-            <CardTitle>Entity resolution flow</CardTitle>
+            <CardTitle>Lumenflow worked example (deterministic first, human final)</CardTitle>
             <p className="mt-2 text-sm text-[var(--muted)]">
               Example inputs: {entityResolutionSample.target.join(", ")}
             </p>

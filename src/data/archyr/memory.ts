@@ -8,6 +8,17 @@ export interface MemorySignal {
   item: string;
   cadence: string;
   action: string;
+  updates: string;
+  approver: string;
+}
+
+export type MemoryStance = "Adopt" | "Reject" | "Defer";
+
+export interface MemoryLandscapeItem {
+  technology: string;
+  contribution: string;
+  stance: MemoryStance;
+  why: string;
 }
 
 export interface MemoryLoopStep {
@@ -102,40 +113,97 @@ export const memoryLoop: MemoryLoopStep[] = [
 
 export const memorySignals: MemorySignal[] = [
   {
-    id: "partner-edits",
-    item: "Partner edits",
-    cadence: "weekly",
-    action: "Reviewed for prompt and skill improvements.",
+    id: "human-approval-rejection",
+    item: "Human approval / rejection",
+    cadence: "immediate",
+    action: "Captured as structured review events.",
+    updates: "Publish and merge gates, memo status, and low-confidence merge controls.",
+    approver: "Partner + designated reviewer",
   },
   {
     id: "eval-failures",
-    item: "Reviewer-agent eval failures",
+    item: "Reviewer-agent eval scores",
     cadence: "daily during build phase",
-    action: "Used for immediate triage and test expansion.",
+    action: "Used for eval drift detection and routing policy tuning.",
+    updates: "Routers, rubric thresholds, and failure retry policy.",
+    approver: "QA lead after evidence check",
   },
   {
     id: "retrieval-clicks",
     item: "Retrieval click-through",
     cadence: "weekly",
     action: "Used to tune retrieval and reranking.",
+    updates: "Ranking weights and reranker thresholds.",
+    approver: "Data owner (partner loop leader)",
   },
   {
-    id: "approval-events",
-    item: "Human approval/rejection",
-    cadence: "immediate",
-    action: "Captured as structured feedback event.",
+    id: "partner-feedback",
+    item: "Partner feedback",
+    cadence: "weekly",
+    action: "Used for prompt and section style improvement.",
+    updates: "Prompt wording, memo sections, and escalation hints.",
+    approver: "Partnership lead",
   },
   {
     id: "outcomes",
-    item: "Deal outcomes",
+    item: "Deal outcomes years later",
     cadence: "quarterly or annually",
     action: "Long-term signal for retrospective system quality.",
+    updates: "Signal weighting, memory decay assumptions, and diligence playbooks.",
+    approver: "Portfolio governance forum",
   },
   {
     id: "skills",
     item: "Skill performance",
     cadence: "versioned/eval-gated",
     action: "Promote only after evaluation checks pass.",
+    updates: "Skills and SOPs only after eval gates pass.",
+    approver: "Owner + QA before release",
+  },
+];
+
+export const memoryLandscape: MemoryLandscapeItem[] = [
+  {
+    technology: "MemPalace",
+    contribution: "Method-of-loci memory framing for long-horizon episodic retrieval.",
+    stance: "Defer",
+    why: "Stronger novelty than fit for two-person MVP; too hard to keep evidence provenance and reversibility first.",
+  },
+  {
+    technology: "Hierarchical memory skills",
+    contribution: "Reusable memory-writing playbooks by domain and confidence tier.",
+    stance: "Adopt",
+    why: "Fits our skill model and keeps recall behavior consistent across sectors.",
+  },
+  {
+    technology: "Vector-only memory",
+    contribution: "Fast semantic lookup for first-pass retrieval.",
+    stance: "Reject",
+    why: "Insufficient for auditability, temporal claims, and merge safety in diligence.",
+  },
+  {
+    technology: "HippoRAG",
+    contribution: "Graph-like memory compression and retrieval over evolving context.",
+    stance: "Defer",
+    why: "Worth watching, but premature relative to Postgres-first and low team size.",
+  },
+  {
+    technology: "EM-LLM",
+    contribution: "Model-conditioned memory policies and adaptation loop.",
+    stance: "Reject",
+    why: "Unclear observability and harder to enforce deterministic guardrails now.",
+  },
+  {
+    technology: "Titans",
+    contribution: "Large-context memory-heavy orchestration pattern.",
+    stance: "Defer",
+    why: "Promising, but heavy for current scope and not yet tied to explicit VC-specific eval gates.",
+  },
+  {
+    technology: "Anthropic memory tooling",
+    contribution: "Production-friendly memory primitives with context contracts.",
+    stance: "Adopt",
+    why: "Useful where it aligns to prompt contracts and human checkpoints; not a replacement for custom memory schema.",
   },
 ];
 

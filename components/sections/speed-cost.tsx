@@ -1,7 +1,14 @@
 import { SectionShell } from "@/components/section-shell";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { CostCalculator } from "@/components/widgets/cost-calculator";
-import { costRecommendation, modelRouting, workflowTargets, extendedThinkingPolicy, costControls } from "@/src/data/archyr/cost";
+import {
+  costRecommendation,
+  modelRouting,
+  workflowTargets,
+  extendedThinkingPolicy,
+  costControls,
+  fineTunePolicy,
+} from "@/src/data/archyr/cost";
 
 export default function SpeedAccuracyCost() {
   return (
@@ -31,17 +38,22 @@ export default function SpeedAccuracyCost() {
             {modelRouting.length === 0 ? (
               <p className="text-sm text-[var(--muted)]">No model routing recommendations configured.</p>
             ) : null}
-            {modelRouting.map((route) => (
-              <div
-                key={route.modelClass}
-                className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3"
-              >
+              {modelRouting.map((route) => (
+                <div
+                  key={route.modelClass}
+                  className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3"
+                >
                 <p className="font-semibold text-[var(--text)]">{route.modelClass}</p>
                 <p className="text-xs text-[var(--muted)]">Use for: {route.useFor.join(", ")}</p>
-                <p className="text-xs text-[var(--muted)]">Strengths: {route.strengths.join(", ")}</p>
-              </div>
-            ))}
-          </div>
+                  <p className="text-xs text-[var(--muted)]">Strengths: {route.strengths.join(", ")}</p>
+                </div>
+              ))}
+            </div>
+            <div className="mt-3 rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm text-[var(--muted)]">
+              <p className="font-semibold text-[var(--text)]">Fine-tune policy</p>
+              <p>{fineTunePolicy.whenToUse}</p>
+              <p className="mt-1">{fineTunePolicy.whyNotDefault}</p>
+            </div>
           </CardContent>
         </Card>
 
@@ -74,8 +86,13 @@ export default function SpeedAccuracyCost() {
                 <div key={target.id} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3">
                   <p className="font-semibold text-[var(--text)]">{target.title}</p>
                   <p className="text-xs text-[var(--muted)]">Latency target: {target.targetLatency}</p>
-                  <p className="text-xs text-[var(--muted)]">Cost target: {target.costGoal}</p>
+                  <p className="text-xs text-[var(--muted)]">Cost envelope: {target.costEnvelope}</p>
+                  <p className="text-xs text-[var(--muted)]">Model route: {target.modelRoute}</p>
+                  <p className="text-xs text-[var(--muted)]">Route detail: {target.routeDetail}</p>
+                  <p className="text-xs text-[var(--muted)]">Extended thinking: {target.extendedThinking}</p>
+                  <p className="text-xs text-[var(--muted)]">Prompt caching: {target.promptCaching}</p>
                   <p className="text-xs text-[var(--muted)]">Stack: {target.stack.join(" + ")}</p>
+                  <p className="text-xs text-[var(--muted)]">Blast controls: {target.blastRadiusControls.join(", ")}</p>
                   {target.notes ? (
                     <p className="mt-1 text-[11px] text-[var(--text)]">{target.notes.join(" ")}</p>
                   ) : null}

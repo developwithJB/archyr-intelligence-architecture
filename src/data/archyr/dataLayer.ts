@@ -31,7 +31,39 @@ export interface DataLifecycleNode {
   note: string;
 }
 
+export interface MvpFutureStatePlan {
+  phase: string;
+  instruction: string;
+}
+
 export const dataLayerRecommendation = "Postgres-first, with derived search and graph indexes.";
+
+export const mvpVsFutureState: MvpFutureStatePlan[] = [
+  {
+    phase: "Day 0 MVP",
+    instruction:
+      "Postgres + pgvector + object storage. Keep Postgres as canonical, store vectors and artifacts as derived views.",
+  },
+  {
+    phase: "Future scale trigger",
+    instruction:
+      "Add Redis when workflow runtime needs locks, budgets, queue state, or circuit breakers.",
+  },
+  {
+    phase: "Future analytics scale trigger",
+    instruction:
+      "Add DuckDB when financial export analysis becomes painful in Postgres and query speed becomes a team blocker.",
+  },
+  {
+    phase: "Future relationship scale trigger",
+    instruction:
+      "Add Kuzu or Neo4j only when repeated 2+ hop relationship queries justify graph ops over joins.",
+  },
+  {
+    phase: "Canonical rule",
+    instruction: "Do not make graph canonical on day one.",
+  },
+];
 
 export const coreStorage: DataStoreItem[] = [
   {
@@ -181,17 +213,15 @@ export const knowledgeGatewayMethodList: GatewayExample[] = gatewayExamples;
 export const entityResolutionSample = {
   target: ["Lumenflow", "Lumenflow Inc.", "lumenflow.io"],
   steps: [
-    "Normalize company names and domains.",
-    "Generate candidates from exact domain, legal name, email domain, aliases, and fuzzy matches.",
-    "Score evidence deterministically first.",
-    "Use LLM adjudication only after narrowing candidates.",
-    "Store aliases and same-as relationships.",
-    "Require human review for low-confidence merges.",
+    "Deterministic candidate generation across exact name, legal entity, and domain variants for Lumenflow / Lumenflow Inc. / lumenflow.io.",
+    "Evidence scoring using source strength, recency, and conflict penalties (no model judgment yet).",
+    "LLM adjudication only after narrowing to top candidates and low-ambiguity fields.",
+    "Human review for low-confidence merges, with explicit merge override path.",
   ],
 };
 
 export const biggestFailureMode =
-  "False positive merges. Duplicate records are annoying; incorrectly merging two different companies corrupts every future memo and relationship.";
+  "Key failure mode: false positive merge corrupting future memos and relationship memory.";
 
 export const graphWhereItWins = [
   "Founder/investor/advisor/customer relationships",

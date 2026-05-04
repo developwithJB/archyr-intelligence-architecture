@@ -31,12 +31,14 @@ export const sourceItems: SourceItem[] = [
     title: "Claude Agent SDK",
     category: "reference",
     tags: ["agent runtime", "tools"],
+    link: "https://docs.anthropic.com/en/docs/claude-code/sdk",
     note: "Considered for Claude-native workflows where direct file- and MCP-oriented tooling is strongest.",
   },
   {
     title: "Claude Skills / SKILL.md",
     category: "pattern",
     tags: ["playbooks", "versioning", "operations"],
+    link: "https://support.claude.com/en/articles/12512180-using-skills-in-claude",
     note: "Used as reusable SOP units with explicit governance, review, and version control over behavior.",
   },
   {
@@ -78,12 +80,14 @@ export const sourceItems: SourceItem[] = [
     title: "Contextual retrieval",
     category: "reference",
     tags: ["retrieval", "context windows", "precision"],
+    link: "https://www.anthropic.com/engineering/contextual-retrieval",
     note: "Applied to keep evidence retrieval grounded and reduce low-confidence, context-drifted summaries.",
   },
   {
     title: "Hybrid search / reranking",
     category: "reference",
     tags: ["search", "rerank", "evaluation"],
+    link: "https://weaviate.io/developers/weaviate/search/hybrid",
     note: "Blend lexical and vector retrieval, then rerank by relevance, freshness, and evidence quality.",
   },
   {
@@ -94,9 +98,17 @@ export const sourceItems: SourceItem[] = [
     note: "Referenced for evaluation workflow patterns, scoring governance, and long-horizon model behavior review.",
   },
   {
-    title: "MemPalace and HippoRAG",
+    title: "MemPalace",
     category: "pattern",
     tags: ["memory", "long-horizon", "RAG"],
+    link: "https://github.com/mempalace/mempalace",
+    note: "Reviewed for memory architecture patterns emphasizing temporal claims, compounding retrieval, and context stability.",
+  },
+  {
+    title: "HippoRAG",
+    category: "pattern",
+    tags: ["memory", "long-horizon", "RAG"],
+    link: "https://github.com/OSU-NLP-Group/HippoRAG",
     note: "Reviewed for memory architecture patterns emphasizing temporal claims, compounding retrieval, and context stability.",
   },
 ];

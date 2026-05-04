@@ -9,6 +9,7 @@ import {
   temporalExample,
   whatArchyrRemembers,
   memoryPolicies,
+  memoryLandscape,
 } from "@/src/data/archyr/memory";
 
 export default function MemoryLearning() {
@@ -88,6 +89,26 @@ export default function MemoryLearning() {
 
       <Card className="mt-4">
         <CardContent>
+          <CardTitle>Memory landscape</CardTitle>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {memoryLandscape.length === 0 ? (
+              <p className="text-sm text-[var(--muted)]">No memory landscape entries are configured.</p>
+            ) : null}
+            {memoryLandscape.map((entry) => (
+              <div key={entry.technology} className="rounded-xl border border-[var(--line)] p-2 text-sm text-[var(--muted)]">
+                <p className="font-semibold text-[var(--text)]">{entry.technology}</p>
+                <p>{entry.contribution}</p>
+                <p className="mt-1">
+                  <span className="font-semibold text-[var(--text)]">{entry.stance}:</span> {entry.why}
+                </p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="mt-4">
+        <CardContent>
           <CardTitle>Signals and cadence</CardTitle>
           <ul className="mt-3 space-y-2 text-sm text-[var(--muted)]">
             {memorySignals.length === 0 ? <li className="rounded-xl border border-[var(--line)] p-2">No signals configured.</li> : null}
@@ -96,6 +117,8 @@ export default function MemoryLearning() {
                 <p className="font-semibold text-[var(--text)]">{signal.item}</p>
                 <p>{signal.action}</p>
                 <p className="mt-1 text-xs">Cadence: {signal.cadence}</p>
+                <p className="text-xs">Updates: {signal.updates}</p>
+                <p className="text-xs">Approver: {signal.approver}</p>
               </li>
             ))}
           </ul>

@@ -18,21 +18,21 @@ export interface SkepticSection {
 export const skepticalChecks: SkepticTheme[] = [
   {
     tone: "Overhyped",
-    title: "Autonomous agent swarms.",
-    claim: "Most teams do not need 12 agents chatting with each other.",
+    title: "Chain-of-agents without eval gates.",
+    claim: "A chain of agents is not value in itself; without hard eval gates it creates faster failure propagation.",
     why:
-      "They need durable workflows, narrow contracts, evidence discipline, budget controls, and human checkpoints.",
+      "VC diligence is low-tolerance for ambiguity: each extra handoff compounds wrong assumptions unless every handoff has an explicit gate.",
   },
 ];
 
 export const underratedChecks: SkepticTheme[] = [
   {
     tone: "Underrated",
-    title: "Evidence contracts.",
+    title: "Evidence contracts and typed interfaces.",
     claim:
-      "The best AI diligence system is not the smartest sounding output.",
+      "Load-bearing architecture is in typed contracts, not model cleverness.",
     why:
-      "It is the system where every claim can show where it came from, when it was true, review status, whether it was superseded, confidence, and workflow provenance.",
+      "When every claim, merge, and retrieval result is typed with provenance, you can rollback safely, audit why a decision changed, and recover when teams scale.",
   },
 ];
 

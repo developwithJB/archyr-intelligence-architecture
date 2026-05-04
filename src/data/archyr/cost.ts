@@ -4,6 +4,8 @@ export type CostTarget =
   | "answer-partner-question"
   | "score-new-pipeline-company";
 
+export type WorkflowModelRoute = "Haiku-class" | "Sonnet-class" | "Opus-class" | "Fine-tune";
+
 export interface CostRecommendationProfile {
   recommendation: string;
 }
@@ -19,8 +21,14 @@ export interface WorkflowTarget {
   title: string;
   targetLatency: string;
   costGoal: string;
+  costEnvelope: string;
+  modelRoute: WorkflowModelRoute;
+  routeDetail: string;
+  extendedThinking: string;
+  promptCaching: string;
   stack: string[];
   notes?: string[];
+  blastRadiusControls: string[];
 }
 
 export interface ExtendedThinkingPolicy {
@@ -102,6 +110,11 @@ export interface CostProfile {
   redisOverhead: number;
 }
 
+export interface FineTunePolicy {
+  whenToUse: string;
+  whyNotDefault: string;
+}
+
 export interface CostModeProfile {
   id: "fast" | "accurate" | "cheap";
   label: string;
@@ -137,45 +150,89 @@ export const workflowTargets: WorkflowTarget[] = [
     id: "ingest-200-page-data-room",
     title: "Ingest 200-page data room",
     targetLatency: "15 to 45 minutes",
-    costGoal: "Budget-capped by page count and model depth",
+    costGoal: "Estimate",
+    costEnvelope: "estimate 10-24 budget points per run",
+    modelRoute: "Sonnet-class",
+    routeDetail: "Parse+normalize with cheap deterministic extraction, then Sonnet summaries and conflict reruns.",
+    extendedThinking: "Use for contradiction-heavy filings, legal changes, and conflicting ownership evidence.",
+    promptCaching: "High value on parser/system prompts and section templates reused across each data room run.",
     stack: [
       "parser + cheap extraction model",
       "Sonnet summaries",
       "reviewer for conflicts",
+    ],
+    blastRadiusControls: [
+      "per-deal budget caps",
+      "workflow timeout",
+      "idempotency keys",
+      "max retries",
     ],
   },
   {
     id: "draft-investment-memo",
     title: "Draft investment memo",
     targetLatency: "3 to 7 minutes",
-    costGoal: "moderate",
+    costGoal: "Estimate",
+    costEnvelope: "estimate 4-12 budget points per memo",
+    modelRoute: "Sonnet-class",
+    routeDetail: "Sonnet for drafting, Opus-class only on conflict-heavy or final-signoff branches.",
+    extendedThinking: "Use for final thesis synthesis and explicit contradiction calls.",
+    promptCaching: "Useful for memo structure, citation phrasing, and rubric prompts.",
     stack: [
       "retrieval",
       "Sonnet drafting",
       "Opus/Sonnet reviewer depending on deal priority",
+    ],
+    blastRadiusControls: [
+      "hard gates on unsupported claims",
+      "human approval before publish",
+      "max tool calls",
+      "kill switch",
     ],
   },
   {
     id: "answer-partner-question",
     title: "Answer partner ad-hoc question",
     targetLatency: "p50 under 10 seconds, p95 under 30 seconds",
-    costGoal: "low, with source-safe responses",
+    costGoal: "Estimate",
+    costEnvelope: "estimate <$1 budget points per answer",
+    modelRoute: "Haiku-class",
+    routeDetail: "Fast retrieval-and-answer path, escalate to Sonnet when confidence drops.",
+    extendedThinking: "Avoid except for ambiguous valuation, legal, or contradictory factual asks.",
+    promptCaching: "High value on query normalization and citation formatting prompts.",
     stack: [
       "hybrid retrieval",
       "evidence bundles",
       "Sonnet answer",
     ],
     notes: ["Rule: cite sources or state uncertainty."],
+    blastRadiusControls: [
+      "query-level budget caps",
+      "tool-call limits",
+      "evidence citations hard stop",
+      "max retries",
+    ],
   },
   {
     id: "score-new-pipeline-company",
     title: "Score new pipeline company",
     targetLatency: "15 to 60 seconds",
-    costGoal: "moderate, lightweight scoring",
+    costGoal: "Estimate",
+    costEnvelope: "estimate 1.5-5 budget points per score",
+    modelRoute: "Haiku-class",
+    routeDetail: "Haiku/Sonnet mix with strict schema and score bands; human escalation below confidence floor.",
+    extendedThinking: "Use for edge-case sectors and founder-claim conflicts.",
+    promptCaching: "Cache scoring rubric and sector priors; biggest savings on repeat scoring tasks.",
     stack: [
       "Haiku/Sonnet classifier",
       "retrieval",
       "lightweight scoring rubric",
+    ],
+    blastRadiusControls: [
+      "max subagent fan-out",
+      "human review for low-confidence scores",
+      "idempotency keys",
+      "workflow timeout",
     ],
   },
 ];
@@ -387,6 +444,13 @@ export const costControls: CostControl[] = [
   { name: "kill switch", description: "Emergency circuit breaker for production containment." },
   { name: "human approval before external writes", description: "No outbound external write without explicit approval." },
 ];
+
+export const fineTunePolicy: FineTunePolicy = {
+  whenToUse:
+    "Use fine-tuning for high-volume deterministic extraction and normalization tasks where inputs are stable and evaluation is strict.",
+  whyNotDefault:
+    "Avoid by default to keep behavior transparent under partner-facing diligence and to prevent untracked model drift.",
+};
 
 export const costDefaults: CostInputDefaults = {
   dealsPerDay: 18,

@@ -90,7 +90,8 @@ Human approvals and eval gates are first-class controls, and evidence trails are
 ## How to run locally
 
 ```bash
-cd "/Users/jb/Documents/New project 3"
+git clone https://github.com/developwithJB/archyr-intelligence-architecture.git
+cd archyr-intelligence-architecture
 npm install
 npm run dev
 ```
@@ -112,28 +113,35 @@ npm run build
 - `components/site-nav.tsx` — polished navigation and section anchoring.
 
 ## How it was built with Codex 5.3 Spark
+## Tooling and human intervention
 
-This repository was assembled with Codex 5.3 Spark as a collaborative coding partner:
+### Where Codex drove
+- app scaffolding and routing
+- reusable section/card components
+- diagram and calculator UI plumbing
+- structured content file organization
+- README and deployment documentation drafts
 
-- scaffolding and iterative implementation
-- reusable component creation
-- data model shape for architecture content
-- interactive diagram and calculator behaviors
-- README and deployment documentation
-
-- Manual architecture judgment remained explicit for:
-  - thesis selection
-  - final stack recommendation
-  - rejected alternatives
-  - trust/evaluation strategy
-  - skepticism framing
-  - final review and polish
+### Where I took the wheel
+- architecture thesis and route selection
+- final stack recommendation
+- rejected alternatives and failure-mode reasoning
+- Lumenflow entity-resolution example
+- evaluation gates and self-learning model
+- skepticism section and final pruning
 
 ## Local development flow
 
 ```bash
+git clone https://github.com/developwithJB/archyr-intelligence-architecture.git
+cd archyr-intelligence-architecture
 npm install
 npm run dev
+```
+
+```bash
+npm run lint
+npm run typecheck
 npm run build
 ```
 

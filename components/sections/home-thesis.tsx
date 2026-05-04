@@ -47,6 +47,22 @@ export default function HomeThesis() {
         </div>
 
         <div className="grid gap-3">
+          <Card className="border-[var(--accent)]/20 bg-[var(--surface-muted)]">
+            <CardContent>
+              <CardTitle className="text-sm">Demo path</CardTitle>
+              <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--muted)]">
+                <li>Thesis</li>
+                <li>Three architecture routes</li>
+                <li>Architecture map</li>
+                <li>Data + memory</li>
+                <li>Cost + trust</li>
+                <li>Skepticism</li>
+              </ol>
+              <p className="mt-3 text-xs text-[var(--muted)]">
+                Built to be challenged in conversation, not read as a static memo.
+              </p>
+            </CardContent>
+          </Card>
           <Card className="border-[var(--accent)]/30">
             <CardContent>
               <CardTitle className="text-base">Engineering posture</CardTitle>
@@ -71,6 +87,12 @@ export default function HomeThesis() {
         {finalRecommendation ? (
           <Badge variant="success">Final recommendation defined</Badge>
         ) : null}
+        <Badge
+          variant="warning"
+          className="border-[var(--line)] bg-[var(--surface-muted)] text-[var(--muted)]"
+        >
+          Version 1 shipped before Monday call. Final polish and source hardening before Friday submission.
+        </Badge>
       </div>
     </SectionShell>
   );
