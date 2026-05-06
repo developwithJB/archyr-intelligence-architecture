@@ -249,11 +249,67 @@ export interface OrchestrationRecommendation {
   reason: string;
 }
 
+export interface StackCompatibilityNote {
+  title: string;
+  position: string;
+  points: string[];
+}
+
+export interface ToolFailureEnvelopeField {
+  field: string;
+  purpose: string;
+}
+
+export interface SubagentFailureContract {
+  title: string;
+  position: string;
+  envelope: ToolFailureEnvelopeField[];
+}
+
+export interface SandboxControl {
+  control: string;
+  stance: string;
+}
+
 export const orchestrationRecommendation: OrchestrationRecommendation = {
   recommendation: "LangGraph should be the orchestration core.",
   reason:
     "Archyr workflows are long-running, multi-step, stateful, and review-heavy. Data room ingestion, memo drafting, entity resolution, partner review, and skill updates require checkpoints, retries, human approval, and resumability. A durable workflow graph is a better center of gravity than an agent swarm.",
 };
+
+export const stackCompatibilityNote: StackCompatibilityNote = {
+  title: "Provider-flexible agent layer",
+  position:
+    "OpenAI Agents SDK can remain the provider-flexible agent layer while LangGraph owns durable workflow state.",
+  points: [
+    "OpenAI, Gemini, and Anthropic workers can run inside durable workflow nodes.",
+    "Model routing stays interchangeable; workflow checkpoints, retries, and approvals stay outside the model provider.",
+    "This keeps the architecture aligned with the actual stack without making the product vendor-native.",
+  ],
+};
+
+export const subagentFailureContract: SubagentFailureContract = {
+  title: "Subagent tool-loop contract",
+  position:
+    "For repeated tool failures, the primary fix is a code-side contract. Prompt updates are secondary support.",
+  envelope: [
+    { field: "status", purpose: "success, retryable_failure, or terminal_failure." },
+    { field: "retry_count", purpose: "Number of attempts already consumed." },
+    { field: "dependency", purpose: "Tool, connector, or upstream service that failed." },
+    { field: "trace_id", purpose: "Link back to the exact run and tool call." },
+    { field: "next_allowed_action", purpose: "retry, fallback, escalate, or stop." },
+  ],
+};
+
+export const shellSandboxStance: SandboxControl[] = [
+  { control: "Ephemeral sandbox", stance: "Each run gets isolated compute and scoped filesystem state." },
+  { control: "Allowlisted commands", stance: "Shell access is explicit by workflow, not ambient." },
+  { control: "No ambient secrets", stance: "Secrets are mounted only when a connector contract requires them." },
+  { control: "Network egress controls", stance: "External access is scoped, logged, and revocable." },
+  { control: "CPU, memory, and time limits", stance: "Long-running or resource-heavy commands terminate automatically." },
+  { control: "Audit logs", stance: "Every command, exit code, output summary, and artifact diff is traceable." },
+  { control: "Diff approval before writeback", stance: "Generated changes require review before touching durable project state." },
+];
 
 export const orchestrationHighlights: OrchestrationHighlight[] = [
   {

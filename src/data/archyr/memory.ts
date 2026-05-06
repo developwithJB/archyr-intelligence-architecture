@@ -32,6 +32,13 @@ export interface MemoryCell {
   description: string;
 }
 
+export interface DealEvolutionEvent {
+  moment: string;
+  event: string;
+  systemRead: string;
+  decisionImpact: string;
+}
+
 export type MemoryPolicy = "Adopt" | "Reject";
 
 export interface MemoryPolicyItem {
@@ -72,6 +79,42 @@ export const temporalExample = {
   note: "A company had $2.4M ARR in January and restated to $2.1M in March. Both records remain historically valid; only the March claim is current.",
   fields: temporalFields,
 };
+
+export const dealEvolutionPosition =
+  "Archyr's value is not knowing the latest snapshot; it is knowing what changed, when, why, and whether that change improves the investment case.";
+
+export const dealEvolutionTimeline: DealEvolutionEvent[] = [
+  {
+    moment: "First deck",
+    event: "Seed deck claims $1.8M ARR and two enterprise pilots.",
+    systemRead: "Store as current claims with source spans, observed_at, and deck version.",
+    decisionImpact: "Initial diligence can proceed, but claims remain early and unproven.",
+  },
+  {
+    moment: "Updated deck",
+    event: "New deck adds $2.4M ARR and a third enterprise pilot.",
+    systemRead: "Supersede prior ARR claim while preserving the old deck as historical evidence.",
+    decisionImpact: "Trajectory improves only if the new source is stronger and the metric definition is stable.",
+  },
+  {
+    moment: "Restated revenue",
+    event: "Finance export restates ARR from $2.4M to $2.1M.",
+    systemRead: "Mark the March claim current, retain January as historically valid, and flag the contradiction.",
+    decisionImpact: "Memo should discuss metric volatility instead of blindly using the latest number.",
+  },
+  {
+    moment: "Board or key hire",
+    event: "Company adds a board member or VP Sales after partner intro.",
+    systemRead: "Write a new relationship and role claim with validity window and provenance.",
+    decisionImpact: "Strengthens GTM/readiness analysis only if the role is confirmed and current.",
+  },
+  {
+    moment: "Later financial model",
+    event: "Updated model changes burn, runway, and next-round timing.",
+    systemRead: "Compare changedSince previous model and route material deltas to reviewer evals.",
+    decisionImpact: "Investment case changes because progress and capital efficiency moved, not because one snapshot looks better.",
+  },
+];
 
 export const memoryLoop: MemoryLoopStep[] = [
   {

@@ -10,6 +10,8 @@ import {
   whatArchyrRemembers,
   memoryPolicies,
   memoryLandscape,
+  dealEvolutionPosition,
+  dealEvolutionTimeline,
 } from "@/src/data/archyr/memory";
 
 export default function MemoryLearning() {
@@ -65,6 +67,23 @@ export default function MemoryLearning() {
               </li>
             ))}
           </ul>
+        </CardContent>
+      </Card>
+
+      <Card className="mt-4">
+        <CardContent>
+          <CardTitle>Deal evolution timeline</CardTitle>
+          <p className="mt-2 text-sm leading-7 text-[var(--text)]">{dealEvolutionPosition}</p>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {dealEvolutionTimeline.map((item) => (
+              <div key={item.moment} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm">
+                <p className="font-semibold text-[var(--text)]">{item.moment}</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">{item.event}</p>
+                <p className="mt-1 text-xs text-[var(--text)]">System read: {item.systemRead}</p>
+                <p className="mt-1 text-xs text-[var(--text)]">Decision impact: {item.decisionImpact}</p>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
 

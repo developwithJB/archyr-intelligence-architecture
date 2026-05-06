@@ -110,19 +110,45 @@ npm run build
 - `app/page.tsx` and `components/sections/*` — section composition and rendering.
 - `components/diagram/architecture-diagram.tsx` — interactive architecture map.
 - `components/widgets/cost-calculator.tsx` — speed/accuracy/cost simulator.
-- `components/site-nav.tsx` — polished navigation and section anchoring.
+- `components/sections/sources-notes.tsx` — citation matrix, rubric readiness, and build notes.
+- `components/site-nav.tsx` — navigation and section anchoring.
 
-## How it was built with Codex 5.3 Spark
+## Rubric readiness
+
+The app now explicitly maps to the take-home rubric:
+
+- **Shipping velocity:** one-command local run, passing build, Codex build notes.
+- **Architectural taste:** thesis-first route selection with rejected alternatives.
+- **Tradeoff reasoning:** cost envelopes, model routing, graph deferral triggers, and failure controls.
+- **Self-learning:** feedback signals with cadence, update target, and approver.
+- **Originality:** permission-aware evidence, temporal claims, and evidence contracts.
+- **Research depth:** source matrix covering named frameworks, meta-harnesses, memory systems, retrieval/eval tooling, and pricing assumptions.
+
+## Research defensibility
+
+All major architecture claims are tied to source cards in the app. The source matrix is intentionally read-only for reviewers and includes:
+
+- decision area
+- supported claim
+- stance taken
+- source category
+- source quality
+- link to official docs, source repository, pricing page, or paper
+
 ## Tooling and human intervention
 
+Built with **Codex 5.3 Spark**.
+
 ### Where Codex drove
+
 - app scaffolding and routing
 - reusable section/card components
 - diagram and calculator UI plumbing
 - structured content file organization
-- README and deployment documentation drafts
+- README, audit, and deployment documentation drafts
 
 ### Where I took the wheel
+
 - architecture thesis and route selection
 - final stack recommendation
 - rejected alternatives and failure-mode reasoning
@@ -146,3 +172,10 @@ npm run build
 ```
 
 Use `npm run build` to validate after doc/content edits as a guardrail for schema or import issues.
+
+## Final pre-submit checklist
+
+- Open the app and confirm the default Architecture Routes selection is **Durable Workflow + Typed Intelligence Layer**.
+- Filter Sources by each decision area and confirm every required area has source coverage.
+- Confirm `AUDIT.md` does not contain stale missing-item claims.
+- Confirm no generated local browser artifacts are included in the final submission.

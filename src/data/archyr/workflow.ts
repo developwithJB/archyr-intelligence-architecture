@@ -25,6 +25,20 @@ export interface WorkflowDemoStep {
   detail: string;
 }
 
+export interface BatchSourcingControl {
+  name: string;
+  role: string;
+}
+
+export interface BatchSourcingScenario {
+  title: string;
+  scenario: string;
+  throughputMath: string;
+  storagePath: string;
+  outputPath: string;
+  controls: BatchSourcingControl[];
+}
+
 export const workflowModeExplanations: WorkflowModeExplanation[] = [
   {
     id: "fast",
@@ -58,6 +72,26 @@ export const workflowScenarios: Record<WorkflowMode, string> = {
   fast: "Speed-first route with constrained retries and fast publish checks.",
   accurate: "Quality-first route with extra contradiction and evidence checks.",
   cheap: "Cost-first route with narrower exploratory branches.",
+};
+
+export const batchSourcingScenario: BatchSourcingScenario = {
+  title: "Batch sourcing production run",
+  scenario:
+    "Score 15,000 Postgres companies against Mucker thesis fit and produce ranked review output before end of day.",
+  throughputMath:
+    "For an eight-hour window, target about 31 companies per minute end-to-end, with Redis controlling queue depth and concurrency instead of one giant agent loop.",
+  storagePath:
+    "Write fit score, evidence IDs, failure state, retry count, and review status back to Postgres first.",
+  outputPath:
+    "Generate Google Doc or Sheet output only from approved or ranked Postgres records, not directly from live agent memory.",
+  controls: [
+    { name: "Redis queue state", role: "Track pending, running, failed, and complete jobs." },
+    { name: "Concurrency budgets", role: "Cap workers per data source, model route, and external dependency." },
+    { name: "Locks", role: "Prevent duplicate scoring for the same company and thesis version." },
+    { name: "Retry budgets", role: "Bound transient failures and avoid retry storms." },
+    { name: "Circuit breakers", role: "Stop calling degraded dependencies before they slow the whole system." },
+    { name: "DLQ", role: "Quarantine repeated failures for later replay and eval seed creation." },
+  ],
 };
 
 export const workflowDemoSteps: WorkflowDemoStep[] = [
