@@ -9,6 +9,9 @@ import {
   coordinationPatterns,
   decisionRules,
   skillStance,
+  stackCompatibilityNote,
+  subagentFailureContract,
+  shellSandboxStance,
 } from "@/src/data/archyr/orchestration";
 
 export default function AgentHarness() {
@@ -39,6 +42,18 @@ export default function AgentHarness() {
           ))}
         </div>
       </div>
+
+      <Card className="mt-4 border-[var(--accent)]/30 bg-[var(--surface-muted)]">
+        <CardContent>
+          <CardTitle>{stackCompatibilityNote.title}</CardTitle>
+          <p className="mt-2 text-sm text-[var(--text)]">{stackCompatibilityNote.position}</p>
+          <ul className="mt-2 list-disc space-y-1 pl-5 text-sm text-[var(--muted)]">
+            {stackCompatibilityNote.points.map((point) => (
+              <li key={point}>{point}</li>
+            ))}
+          </ul>
+        </CardContent>
+      </Card>
 
       <div className="mt-4 grid gap-4 md:grid-cols-2">
         <Card>
@@ -85,6 +100,35 @@ export default function AgentHarness() {
         <p className="mt-1 text-xs text-[var(--muted)]">
           {skillStance.constraint}
         </p>
+      </div>
+
+      <div className="mt-4 grid gap-4 md:grid-cols-2">
+        <Card>
+          <CardContent>
+            <CardTitle>{subagentFailureContract.title}</CardTitle>
+            <p className="mt-2 text-sm text-[var(--muted)]">{subagentFailureContract.position}</p>
+            <ul className="mt-3 space-y-2 text-sm text-[var(--muted)]">
+              {subagentFailureContract.envelope.map((item) => (
+                <li key={item.field} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-2">
+                  <span className="font-semibold text-[var(--text)]">{item.field}:</span> {item.purpose}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent>
+            <CardTitle>Shell sandbox stance</CardTitle>
+            <ul className="mt-3 space-y-2 text-sm text-[var(--muted)]">
+              {shellSandboxStance.map((item) => (
+                <li key={item.control} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-2">
+                  <span className="font-semibold text-[var(--text)]">{item.control}:</span> {item.stance}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="mt-4">

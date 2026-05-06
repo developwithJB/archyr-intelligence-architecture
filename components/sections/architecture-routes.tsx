@@ -6,8 +6,11 @@ import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { SectionShell } from "@/components/section-shell";
 import { Badge } from "@/components/ui/badge";
 
+const recommendedRouteId =
+  architectureRouteCards.find((route) => route.verdict === "Recommended route.")?.id ?? architectureRouteCards[0]?.id ?? "";
+
 export default function ArchitectureRoutes() {
-  const [activeRoute, setActiveRoute] = useState<string>(architectureRouteCards[0]?.id ?? "");
+  const [activeRoute, setActiveRoute] = useState<string>(recommendedRouteId);
 
   const current = useMemo(
     () => architectureRouteCards.find((route) => route.id === activeRoute),

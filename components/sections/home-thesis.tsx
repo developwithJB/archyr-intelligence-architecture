@@ -52,14 +52,22 @@ export default function HomeThesis() {
               <CardTitle className="text-sm">Demo path</CardTitle>
               <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--muted)]">
                 <li>Thesis</li>
-                <li>Three architecture routes</li>
-                <li>Architecture map</li>
-                <li>Data + memory</li>
-                <li>Cost + trust</li>
-                <li>Skepticism</li>
+                <li>Eval program</li>
+                <li>Temporal memory</li>
+                <li>KnowledgeGateway + evidence</li>
+                <li>Batch sourcing workflow</li>
+                <li>Cost + sandbox controls</li>
               </ol>
               <p className="mt-3 text-xs text-[var(--muted)]">
                 Built to be challenged in conversation, not read as a static memo.
+              </p>
+            </CardContent>
+          </Card>
+          <Card className="border-[var(--accent)]/30 bg-[var(--surface-muted)]">
+            <CardContent>
+              <CardTitle className="text-sm">Submission focus</CardTitle>
+              <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
+                This version emphasizes evals, temporal context, permission-aware evidence, and production failure controls.
               </p>
             </CardContent>
           </Card>

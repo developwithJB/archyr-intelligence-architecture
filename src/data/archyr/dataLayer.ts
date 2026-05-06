@@ -36,6 +36,12 @@ export interface MvpFutureStatePlan {
   instruction: string;
 }
 
+export interface SourceVisibilityState {
+  state: "visible" | "restricted_internal" | "aggregate_only" | "unavailable";
+  meaning: string;
+  rule: string;
+}
+
 export const dataLayerRecommendation = "Postgres-first, with derived search and graph indexes.";
 
 export const mvpVsFutureState: MvpFutureStatePlan[] = [
@@ -167,7 +173,46 @@ export const gatewayExamples: GatewayExample[] = [
     request: "queryFinancials(dealId, metric, period, sourcePreference)",
     behavior: "Runs deterministic finance lookup and returns source-attributed numeric series.",
   },
+  {
+    name: "getDealEvolution",
+    request: "getDealEvolution(dealId, changedSince, asOf, viewerId)",
+    behavior: "Returns material claim changes, superseded facts, and visibility-safe evidence for a time window.",
+  },
+  {
+    name: "checkEvidenceAccess",
+    request: "checkEvidenceAccess(viewerId, sourceArtifactIds, outputAudience)",
+    behavior: "Returns visible, restricted_internal, aggregate_only, or unavailable for every supporting source.",
+  },
 ];
+
+export const sourceVisibilityStates: SourceVisibilityState[] = [
+  {
+    state: "visible",
+    meaning: "Viewer can inspect the underlying source artifact.",
+    rule: "Use normal citation with direct source link, span, and freshness.",
+  },
+  {
+    state: "restricted_internal",
+    meaning: "Evidence exists, but this viewer is not allowed to inspect it.",
+    rule: "Do not expose source content; route to authorized reviewer or downgrade confidence.",
+  },
+  {
+    state: "aggregate_only",
+    meaning: "Evidence can inform a derived score but cannot be shown as a raw citation.",
+    rule: "Show aggregate confidence and source class, not private text or sender identity.",
+  },
+  {
+    state: "unavailable",
+    meaning: "Source is missing, deleted, stale, or outside the allowed scope.",
+    rule: "Block factual citation and require uncertainty language or follow-up retrieval.",
+  },
+];
+
+export const permissionAwareCitationRule =
+  "A claim can influence internal scoring only if permissions allow; partner-facing output cannot cite or reveal inaccessible evidence.";
+
+export const restrictedEvidenceReviewerCopy =
+  "Evidence exists, but this viewer cannot inspect the source. Route to an authorized reviewer or downgrade confidence.";
 
 export const dataLifecycle: DataLifecycleNode[] = [
   {

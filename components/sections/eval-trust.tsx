@@ -9,6 +9,9 @@ import {
   evaluationRecommendation,
   evalIntegrityWarning,
   evalTraps,
+  evalDatasets,
+  evalEscalationLadder,
+  evalOperationalMetrics,
 } from "@/src/data/archyr/evaluation";
 
 export default function EvalTrust() {
@@ -51,6 +54,53 @@ export default function EvalTrust() {
               ),
             }))}
           />
+        </CardContent>
+      </Card>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+        <Card>
+          <CardContent>
+            <CardTitle>Eval datasets</CardTitle>
+            <div className="mt-3 grid gap-2 md:grid-cols-2">
+              {evalDatasets.map((dataset) => (
+                <div key={dataset.title} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm">
+                  <p className="font-semibold text-[var(--text)]">{dataset.title}</p>
+                  <p className="mt-1 text-xs text-[var(--muted)]">Source: {dataset.source}</p>
+                  <p className="mt-1 text-xs text-[var(--text)]">{dataset.whyItMatters}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent>
+            <CardTitle>Escalation ladder</CardTitle>
+            <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-[var(--muted)]">
+              {evalEscalationLadder.map((step) => (
+                <li key={step.tactic}>
+                  <span className="font-semibold text-[var(--text)]">{step.tactic}:</span>{" "}
+                  {step.position}
+                  <span className="block text-xs">Use when: {step.useWhen}</span>
+                </li>
+              ))}
+            </ol>
+          </CardContent>
+        </Card>
+      </div>
+
+      <Card className="mt-4">
+        <CardContent>
+          <CardTitle>Operational eval metrics</CardTitle>
+          <div className="mt-3 grid gap-2 md:grid-cols-2 lg:grid-cols-3">
+            {evalOperationalMetrics.map((metric) => (
+              <div key={metric.metric} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm">
+                <p className="font-semibold text-[var(--text)]">{metric.metric}</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">Target: {metric.target}</p>
+                <p className="mt-1 text-xs text-[var(--text)]">{metric.reason}</p>
+              </div>
+            ))}
+          </div>
         </CardContent>
       </Card>
 

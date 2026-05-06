@@ -9,6 +9,9 @@ import {
   graphWhereOverkill,
   dataLayerRecommendation,
   mvpVsFutureState,
+  sourceVisibilityStates,
+  permissionAwareCitationRule,
+  restrictedEvidenceReviewerCopy,
 } from "@/src/data/archyr/dataLayer";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -50,6 +53,25 @@ export default function DataLayer() {
         <p className="text-[var(--text)] font-semibold">Biggest failure mode to prevent</p>
         <p className="mt-1">{biggestFailureMode}</p>
       </div>
+
+      <Card className="mb-4">
+        <CardContent>
+          <CardTitle>Permission-aware evidence</CardTitle>
+          <p className="mt-2 text-sm text-[var(--muted)]">{permissionAwareCitationRule}</p>
+          <p className="mt-2 rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm text-[var(--text)]">
+            Reviewer copy: {restrictedEvidenceReviewerCopy}
+          </p>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {sourceVisibilityStates.map((item) => (
+              <div key={item.state} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm">
+                <p className="font-semibold text-[var(--text)]">{item.state}</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">{item.meaning}</p>
+                <p className="mt-1 text-xs text-[var(--text)]">{item.rule}</p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
 
       <h3 className="mb-2 text-sm font-semibold tracking-wide text-[var(--text)]">Storage decision grid</h3>
       <div className="grid gap-4 md:grid-cols-2">
