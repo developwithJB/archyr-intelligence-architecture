@@ -1,169 +1,66 @@
-# Archyr Interactive Architecture Artifact
+# Archyr Intelligence Architecture
 
-## What this app is
+Interactive architecture artifact for Archyr, an AI-native VC CRM diligence layer.
 
-This project is a clickable architecture artifact for a VC diligence platform called **Archyr**.
+**Live deployment:** [Vercel preview](https://archyr-intelligence-architecture-232maluhy-haus-havn.vercel.app)  
+**Local app:** [http://localhost:3000](http://localhost:3000)
 
-It turns an architecture assignment into a web app:
+> Note: the current Vercel project is team-protected. If the live URL asks for Vercel access, the local run below is the same app.
 
-- A thesis-first homepage with the core recommendation.
-- Route cards that compare competing architecture choices.
-- Dedicated sections for orchestration, data layer, memory, cost/speed tradeoffs, evaluation, skepticism, a workflow simulation, and interactive diagrams.
-- Editable source references and build notes for interview-ready transparency.
-
-The app is intentionally frontend-heavy and content-driven: each major section renders from small TypeScript content files under `src/data/archyr/`, so the structure is easy to audit and extend.
-
-## What this app is not
-
-- Not a backend service or production diligence engine.
-- Not a legal/financial compliance system.
-- Not a data ingestion or LLM runtime in its own right.
-- Not an autonomous decision-maker.
-
-It is a **decision-architecture artifact**: a readable, interactive representation of a target system design.
-
-## Core thesis
+## The Point
 
 Archyr should not be built as an autonomous agent swarm.
 
-It should be a deterministic diligence workflow system, where LLM agents are bounded workers around:
+It should be a deterministic diligence workflow system where LLM agents are bounded workers around ingestion, extraction, retrieval, memo drafting, review, and memory updates.
 
-- ingestion
-- extraction
-- memo drafting
-- retrieval
-- review
-- memory updates
+The architecture I defend:
 
-The final recommended spine is:
+- **LangGraph** for durable workflow state.
+- **Pydantic AI** for typed model boundaries.
+- **Claude Skills / SKILL.md** for reusable diligence SOPs.
+- **MCP** for connector boundaries.
+- **Postgres + pgvector** as the early source-of-truth and retrieval base.
+- **Object storage** for raw artifacts.
+- **DuckDB** for financial/export analysis when it earns its keep.
+- **Redis** for queue, lock, budget, and circuit-breaker state.
+- **Graph indexing later**, only when relationship traversal proves material.
 
-- **LangGraph** for durable workflows
-- **Pydantic AI** for typed contracts
-- **Claude Skills** for domain SOPs
-- **MCP** for connectors
-- **Postgres** as source of truth with **pgvector**, object storage, and **DuckDB** where needed
-- **Redis** for workflow control
-- optional graph indexing when relationship traversal proves material
+## What To Click
 
-## Tech stack
+Start here if you are reviewing the take-home:
 
-- Next.js (App Router)
-- React + TypeScript
-- Tailwind CSS
-- Pure frontend content model in `src/data/archyr/*`
-- Optional interactive diagram rendering with standard React nodes (no external graph engine required by default)
+1. **Home / Thesis** - the core recommendation.
+2. **Architecture Routes** - why the durable typed workflow route wins.
+3. **Agent Harness** - framework comparisons and decision rules.
+4. **Data Layer** - KnowledgeGateway, Lumenflow entity resolution, and graph boundaries.
+5. **Memory** - temporal claims and the self-learning loop.
+6. **Speed, Accuracy & Cost** - model routing, prompt caching, and blast-radius controls.
+7. **Evaluation** - day-one/day-90/day-365 trust strategy.
+8. **Sources / Build Notes** - citation matrix and rubric coverage.
 
-## App sections
+## What This Is
 
-- Home / Thesis
-- Architecture Routes
-- Architecture Map
-- Agent Harness & Orchestration
-- Data Layer
-- Memory & Self-Learning
-- Speed, Accuracy & Cost
-- Evaluation & Trust
-- Skepticism
-- Workflow Demo
-- Sources / Build Notes
+This is a decision-architecture artifact: a clickable design doc built as an app.
 
-## Final architecture recommendation
+It is meant to show the architecture I would defend in a room with Mucker/Archyr before starting the build: what I would adopt, what I would reject, where I would put the gates, and how the system gets better without pretending the model magically learns.
 
-Use a durable, typed, human-in-the-loop architecture:
+It is not:
 
-- LangGraph orchestrates long-running diligence flows.
-- Pydantic AI constrains model outputs.
-- MCP exposes connectors.
-- Postgres stores canonical structured data and audit-safe history.
-- pgvector + object storage handle evidence retrieval and raw artifacts.
-- DuckDB powers financial/export analysis.
-- Redis controls job/state runtime concerns.
-- Graph systems (Kuzu/Neo4j) are introduced only when proven necessary.
+- a production CRM
+- a backend ingestion engine
+- a legal or financial compliance system
+- an autonomous investment decision-maker
 
-Human approvals and eval gates are first-class controls, and evidence trails are retained in temporal memory.
-
-## Prerequisites
-
-- Node.js 20+ (recommended)
-- npm
-
-## How to run locally
+## Run Locally
 
 ```bash
-git clone https://github.com/developwithJB/archyr-intelligence-architecture.git
-cd archyr-intelligence-architecture
 npm install
 npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000).
 
-## Build
-
-```bash
-npm run build
-```
-
-## Files of interest
-
-- `src/data/archyr/*` — structured, typed content for each artifact section.
-- `app/page.tsx` and `components/sections/*` — section composition and rendering.
-- `components/diagram/architecture-diagram.tsx` — interactive architecture map.
-- `components/widgets/cost-calculator.tsx` — speed/accuracy/cost simulator.
-- `components/sections/sources-notes.tsx` — citation matrix, rubric readiness, and build notes.
-- `components/site-nav.tsx` — navigation and section anchoring.
-
-## Rubric readiness
-
-The app now explicitly maps to the take-home rubric:
-
-- **Shipping velocity:** one-command local run, passing build, Codex build notes.
-- **Architectural taste:** thesis-first route selection with rejected alternatives.
-- **Tradeoff reasoning:** cost envelopes, model routing, graph deferral triggers, and failure controls.
-- **Self-learning:** feedback signals with cadence, update target, and approver.
-- **Originality:** permission-aware evidence, temporal claims, and evidence contracts.
-- **Research depth:** source matrix covering named frameworks, meta-harnesses, memory systems, retrieval/eval tooling, and pricing assumptions.
-
-## Research defensibility
-
-All major architecture claims are tied to source cards in the app. The source matrix is intentionally read-only for reviewers and includes:
-
-- decision area
-- supported claim
-- stance taken
-- source category
-- source quality
-- link to official docs, source repository, pricing page, or paper
-
-## Tooling and human intervention
-
-Built with **Codex 5.3 Spark**.
-
-### Where Codex drove
-
-- app scaffolding and routing
-- reusable section/card components
-- diagram and calculator UI plumbing
-- structured content file organization
-- README, audit, and deployment documentation drafts
-
-### Where I took the wheel
-
-- architecture thesis and route selection
-- final stack recommendation
-- rejected alternatives and failure-mode reasoning
-- Lumenflow entity-resolution example
-- evaluation gates and self-learning model
-- skepticism section and final pruning
-
-## Local development flow
-
-```bash
-git clone https://github.com/developwithJB/archyr-intelligence-architecture.git
-cd archyr-intelligence-architecture
-npm install
-npm run dev
-```
+## Validate
 
 ```bash
 npm run lint
@@ -171,11 +68,37 @@ npm run typecheck
 npm run build
 ```
 
-Use `npm run build` to validate after doc/content edits as a guardrail for schema or import issues.
+## Tech Stack
 
-## Final pre-submit checklist
+- Next.js App Router
+- React
+- TypeScript
+- Tailwind CSS
+- Content-driven sections under `src/data/archyr/*`
 
-- Open the app and confirm the default Architecture Routes selection is **Durable Workflow + Typed Intelligence Layer**.
-- Filter Sources by each decision area and confirm every required area has source coverage.
-- Confirm `AUDIT.md` does not contain stale missing-item claims.
-- Confirm no generated local browser artifacts are included in the final submission.
+## Files Worth Reading
+
+- `src/data/archyr/thesis.ts` - the core point of view.
+- `src/data/archyr/orchestration.ts` - agent framework comparisons and coordination rules.
+- `src/data/archyr/dataLayer.ts` - storage architecture and KnowledgeGateway API.
+- `src/data/archyr/memory.ts` - temporal memory and self-learning loop.
+- `src/data/archyr/cost.ts` - workflow cost/speed/accuracy frontier.
+- `src/data/archyr/evaluation.ts` - trust, gates, and eval roadmap.
+- `src/data/archyr/sources.ts` - citation matrix and rubric coverage.
+
+## Built With AI, Steered By Taste
+
+I used Codex to move fast on scaffolding, component structure, UI plumbing, and documentation passes.
+
+I took the wheel on the parts that matter most:
+
+- the architecture thesis
+- final stack recommendation
+- rejected alternatives
+- failure-mode reasoning
+- Lumenflow entity-resolution example
+- eval gates and self-learning model
+- skepticism section
+- final pruning
+
+That is the intended signal of the submission: use modern tooling aggressively, but keep architectural judgment human and explicit.
