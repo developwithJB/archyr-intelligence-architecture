@@ -1,0 +1,9 @@
+.git/
+.next/
+.playwright-cli/
+.playwright-mcp/
+coverage/
+demo-recordings/
+node_modules/
+*.tsbuildinfo
+.DS_Store
