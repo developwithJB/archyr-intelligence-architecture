@@ -12,6 +12,9 @@ import {
   sourceVisibilityStates,
   permissionAwareCitationRule,
   restrictedEvidenceReviewerCopy,
+  evidenceContractFields,
+  evidenceExampleClaim,
+  evidenceVisibilityExamples,
 } from "@/src/data/archyr/dataLayer";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -56,11 +59,44 @@ export default function DataLayer() {
 
       <Card className="mb-4">
         <CardContent>
+          <CardTitle>Evidence Contract</CardTitle>
+          <p className="mt-2 text-sm text-[var(--muted)]">
+            Every recommendation is backed by a claim-level evidence record before it reaches a memo, ranking, or partner-facing answer.
+          </p>
+          <div className="mt-3 grid gap-2 md:grid-cols-2 lg:grid-cols-4">
+            {evidenceContractFields.map((item) => (
+              <div key={item.field} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm">
+                <p className="font-semibold text-[var(--text)]">{item.field}</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">{item.purpose}</p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <Card className="mb-4">
+        <CardContent>
           <CardTitle>Permission-aware evidence</CardTitle>
           <p className="mt-2 text-sm text-[var(--muted)]">{permissionAwareCitationRule}</p>
           <p className="mt-2 rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm text-[var(--text)]">
             Reviewer copy: {restrictedEvidenceReviewerCopy}
           </p>
+          <div className="mt-3 rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3">
+            <p className="text-xs font-semibold uppercase tracking-wide text-[var(--accent)]">Visibility example</p>
+            <p className="mt-1 text-sm font-semibold text-[var(--text)]">{evidenceExampleClaim}</p>
+            <p className="mt-1 text-xs text-[var(--muted)]">
+              The same recommendation renders differently depending on whether the viewer can inspect the supporting source.
+            </p>
+          </div>
+          <div className="mt-3 grid gap-2 md:grid-cols-2">
+            {evidenceVisibilityExamples.map((item) => (
+              <div key={item.visibility} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm">
+                <p className="font-semibold text-[var(--text)]">{item.visibility}</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">{item.recommendationSurface}</p>
+                <p className="mt-1 text-xs text-[var(--text)]">{item.backendRule}</p>
+              </div>
+            ))}
+          </div>
           <div className="mt-3 grid gap-2 md:grid-cols-2">
             {sourceVisibilityStates.map((item) => (
               <div key={item.state} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm">

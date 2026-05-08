@@ -3,7 +3,14 @@
 import { useState } from "react";
 import { SectionShell } from "@/components/section-shell";
 import { Badge } from "@/components/ui/badge";
-import { batchSourcingScenario, workflowDemoSteps } from "@/src/data/archyr/workflow";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import {
+  batchSourcingScenario,
+  jobStatusFlow,
+  runtimeEntities,
+  workerControls,
+  workflowDemoSteps,
+} from "@/src/data/archyr/workflow";
 
 export default function WorkflowDemo() {
   const [active, setActive] = useState(0);
@@ -37,6 +44,50 @@ export default function WorkflowDemo() {
             </div>
           ))}
         </div>
+      </div>
+
+      <Card className="mb-4">
+        <CardContent>
+          <CardTitle>Backend runtime</CardTitle>
+          <div className="mt-3 grid gap-2 md:grid-cols-3 lg:grid-cols-7">
+            {jobStatusFlow.map((step) => (
+              <div key={step.status} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm">
+                <p className="font-semibold text-[var(--text)]">{step.status}</p>
+                <p className="mt-1 text-xs text-[var(--muted)]">{step.meaning}</p>
+              </div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+      <div className="mb-4 grid gap-4 lg:grid-cols-[1.1fr_0.9fr]">
+        <Card>
+          <CardContent>
+            <CardTitle>Runtime tables and entities</CardTitle>
+            <div className="mt-3 grid gap-2 md:grid-cols-2">
+              {runtimeEntities.map((item) => (
+                <div key={item.entity} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-sm">
+                  <p className="font-semibold text-[var(--text)]">{item.entity}</p>
+                  <p className="mt-1 text-xs text-[var(--muted)]">Stores: {item.stores}</p>
+                  <p className="mt-1 text-xs text-[var(--text)]">{item.whyItMatters}</p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent>
+            <CardTitle>Worker control envelope</CardTitle>
+            <ul className="mt-3 space-y-2 text-sm text-[var(--muted)]">
+              {workerControls.map((item) => (
+                <li key={item.control} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3">
+                  <span className="font-semibold text-[var(--text)]">{item.control}:</span> {item.contract}
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="grid gap-4 md:grid-cols-[0.8fr_1.2fr]">

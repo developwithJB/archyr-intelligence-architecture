@@ -26,6 +26,7 @@ export type ArchitectureSectionId =
   | "memory"
   | "speed-accuracy-cost"
   | "evaluation-trust"
+  | "trust-replay"
   | "skepticism"
   | "workflow-demo"
   | "architecture-map"
@@ -46,6 +47,48 @@ export const siteSections: SiteSection[] = [
     subtitle: "A clickable architecture artifact for building a VC diligence system that compounds across deals.",
   },
   {
+    id: "evaluation-trust",
+    label: "Evaluation",
+    title: "Evaluation & Trust",
+    subtitle: "Measure factual quality, citation discipline, and safety.",
+  },
+  {
+    id: "trust-replay",
+    label: "Trust Replay",
+    title: "Trust Replay",
+    subtitle: "Replay one generated claim through evidence, permissions, evals, and render gates.",
+  },
+  {
+    id: "data-layer",
+    label: "Trust / Provenance",
+    title: "Data Layer",
+    subtitle: "Postgres first, then retrieval and analytics layers.",
+  },
+  {
+    id: "workflow-demo",
+    label: "Backend Runtime",
+    title: "Workflow Demo",
+    subtitle: "A walkthrough of deterministic diligence stages.",
+  },
+  {
+    id: "agent-harness",
+    label: "Agent Guardrails",
+    title: "Agent Harness & Orchestration",
+    subtitle: "LLM workers are bounded by deterministic workflows.",
+  },
+  {
+    id: "memory",
+    label: "Memory Loop",
+    title: "Memory & Self-Learning",
+    subtitle: "Temporal memory as a first-class system feature.",
+  },
+  {
+    id: "sources",
+    label: "Sources",
+    title: "Sources / Build Notes",
+    subtitle: "Assumptions and references behind architecture choices.",
+  },
+  {
     id: "architecture-routes",
     label: "Architecture Routes",
     title: "Architecture Routes",
@@ -58,52 +101,16 @@ export const siteSections: SiteSection[] = [
     subtitle: "Interactive flow from inputs to governance with explicit checkpoints.",
   },
   {
-    id: "agent-harness",
-    label: "Agent Harness",
-    title: "Agent Harness & Orchestration",
-    subtitle: "LLM workers are bounded by deterministic workflows.",
-  },
-  {
-    id: "data-layer",
-    label: "Data Layer",
-    title: "Data Layer",
-    subtitle: "Postgres first, then retrieval and analytics layers.",
-  },
-  {
-    id: "memory",
-    label: "Memory",
-    title: "Memory & Self-Learning",
-    subtitle: "Temporal memory as a first-class system feature.",
-  },
-  {
     id: "speed-accuracy-cost",
     label: "Speed, Accuracy & Cost",
     title: "Speed, Accuracy & Cost",
     subtitle: "Trade off quality, spend, and latency with guardrails.",
   },
   {
-    id: "evaluation-trust",
-    label: "Evaluation",
-    title: "Evaluation & Trust",
-    subtitle: "Measure factual quality, citation discipline, and safety.",
-  },
-  {
     id: "skepticism",
     label: "Skepticism",
     title: "Skepticism",
     subtitle: "Challenge assumptions and model-led shortcuts.",
-  },
-  {
-    id: "workflow-demo",
-    label: "Workflow Demo",
-    title: "Workflow Demo",
-    subtitle: "A walkthrough of deterministic diligence stages.",
-  },
-  {
-    id: "sources",
-    label: "Sources",
-    title: "Sources / Build Notes",
-    subtitle: "Assumptions and references behind architecture choices.",
   },
 ];
 

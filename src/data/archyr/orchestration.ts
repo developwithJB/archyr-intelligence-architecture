@@ -271,6 +271,21 @@ export interface SandboxControl {
   stance: string;
 }
 
+export interface GuardrailOwnership {
+  boundary: string;
+  codeOwns: string;
+  promptOwns: string;
+}
+
+export interface WorkerBudget {
+  workerClass: string;
+  maxToolCalls: string;
+  timeout: string;
+  retryBudget: string;
+  fallbackBehavior: string;
+  subagentFailureHandling: string;
+}
+
 export const orchestrationRecommendation: OrchestrationRecommendation = {
   recommendation: "LangGraph should be the orchestration core.",
   reason:
@@ -309,6 +324,90 @@ export const shellSandboxStance: SandboxControl[] = [
   { control: "CPU, memory, and time limits", stance: "Long-running or resource-heavy commands terminate automatically." },
   { control: "Audit logs", stance: "Every command, exit code, output summary, and artifact diff is traceable." },
   { control: "Diff approval before writeback", stance: "Generated changes require review before touching durable project state." },
+];
+
+export const guardrailOwnership: GuardrailOwnership[] = [
+  {
+    boundary: "Schemas and typed outputs",
+    codeOwns: "Pydantic contracts, required fields, validators, parse failures, and persistence shape.",
+    promptOwns: "Task framing and examples that help the model satisfy the schema.",
+  },
+  {
+    boundary: "Permissions and citations",
+    codeOwns: "Evidence visibility checks, source access, redaction, and publish blocking.",
+    promptOwns: "Uncertainty phrasing and citation explanation style after code confirms access.",
+  },
+  {
+    boundary: "Tool access",
+    codeOwns: "Allowlists, connector scopes, auth boundaries, shell sandbox, and network policy.",
+    promptOwns: "Which allowed tool is relevant for the assigned task.",
+  },
+  {
+    boundary: "Timeouts and retries",
+    codeOwns: "Lease windows, retry budgets, circuit breakers, DLQ, and next action decisions.",
+    promptOwns: "Concise failure summaries for human reviewers.",
+  },
+  {
+    boundary: "Idempotency and writes",
+    codeOwns: "Idempotency keys, duplicate protection, approval state, and writeback gates.",
+    promptOwns: "Drafting proposed changes that still require approval.",
+  },
+  {
+    boundary: "Review behavior",
+    codeOwns: "Which routes require reviewer nodes or human gates.",
+    promptOwns: "Rubric language, skeptical critique style, and missing-evidence questions.",
+  },
+];
+
+export const workerBudgets: WorkerBudget[] = [
+  {
+    workerClass: "Ingestion and parser",
+    maxToolCalls: "4 per artifact",
+    timeout: "90 seconds per artifact",
+    retryBudget: "2 transient retries",
+    fallbackBehavior: "Quarantine artifact and continue the run when optional.",
+    subagentFailureHandling: "Return typed parser failure with artifact id and checksum.",
+  },
+  {
+    workerClass: "Extraction",
+    maxToolCalls: "6 per chunk group",
+    timeout: "120 seconds per group",
+    retryBudget: "1 schema-repair retry",
+    fallbackBehavior: "Persist low-confidence candidate and require review.",
+    subagentFailureHandling: "Return schema error, offending field, confidence, and next action.",
+  },
+  {
+    workerClass: "Retrieval",
+    maxToolCalls: "5 searches plus 2 reranks",
+    timeout: "45 seconds per question",
+    retryBudget: "1 fallback search mode",
+    fallbackBehavior: "Return insufficient evidence rather than synthesize.",
+    subagentFailureHandling: "Emit recall failure with query, filters, and source classes tried.",
+  },
+  {
+    workerClass: "Memo drafting",
+    maxToolCalls: "3 evidence reads per section",
+    timeout: "180 seconds per section",
+    retryBudget: "1 citation-repair retry",
+    fallbackBehavior: "Leave section in draft with uncertainty ledger.",
+    subagentFailureHandling: "Return unsupported claim list and blocked publish state.",
+  },
+  {
+    workerClass: "Skeptical reviewer",
+    maxToolCalls: "4 targeted evidence checks",
+    timeout: "120 seconds per memo",
+    retryBudget: "0 automatic retries",
+    fallbackBehavior: "Escalate to analyst if reviewer cannot complete.",
+    subagentFailureHandling: "Return incomplete-review state and required human checkpoint.",
+  },
+  {
+    workerClass: "Sandboxed shell worker",
+    maxToolCalls: "Allowlisted command batch only",
+    timeout: "60 seconds per command",
+    retryBudget: "0 unsafe retries",
+    fallbackBehavior: "Block command and require explicit workflow approval.",
+    subagentFailureHandling: "Return policy event, command class, and redacted output summary.",
+  },
 ];
 
 export const orchestrationHighlights: OrchestrationHighlight[] = [

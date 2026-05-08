@@ -30,13 +30,25 @@ The architecture I defend:
 Start here if you are reviewing the take-home:
 
 1. **Home / Thesis** - the core recommendation.
-2. **Architecture Routes** - why the durable typed workflow route wins.
-3. **Agent Harness** - framework comparisons and decision rules.
-4. **Data Layer** - KnowledgeGateway, Lumenflow entity resolution, and graph boundaries.
-5. **Memory** - temporal claims and the self-learning loop.
-6. **Speed, Accuracy & Cost** - model routing, prompt caching, and blast-radius controls.
-7. **Evaluation** - day-one/day-90/day-365 trust strategy.
+2. **Evaluation** - labeled eval set, failure-mode matrix, and improvement loop.
+3. **Trust Replay** - one generated claim moving through evidence, permissions, evals, and render gates.
+4. **Trust / Provenance** - Evidence Contract, permissions, source visibility, and KnowledgeGateway.
+5. **Backend Runtime** - queues, leases, retries, idempotency, DLQ, and status tracking.
+6. **Agent Guardrails** - code vs prompt ownership, worker budgets, and sandbox stance.
+7. **Memory Loop** - temporal claims, approved edits, and eval-gated learning.
 8. **Sources / Build Notes** - citation matrix and rubric coverage.
+9. **Architecture Routes** - why the durable typed workflow route wins.
+
+## Final Engineering Pass
+
+The final pass makes the production-readiness story sharper:
+
+- a small labeled eval set with concrete failure cases
+- a Trust Replay interaction that turns one AI claim into a visible gate decision
+- an evidence contract for private and permission-restricted sources
+- backend runtime shape for jobs, workers, retries, and DLQ handling
+- explicit agent guardrails for tool calls, timeouts, retries, and shell access
+- a demo path built for a lead engineer, not a general product tour
 
 ## What This Is
 
@@ -80,10 +92,10 @@ npm run build
 
 - `src/data/archyr/thesis.ts` - the core point of view.
 - `src/data/archyr/orchestration.ts` - agent framework comparisons and coordination rules.
-- `src/data/archyr/dataLayer.ts` - storage architecture and KnowledgeGateway API.
+- `src/data/archyr/dataLayer.ts` - storage architecture, Evidence Contract, and KnowledgeGateway API.
 - `src/data/archyr/memory.ts` - temporal memory and self-learning loop.
 - `src/data/archyr/cost.ts` - workflow cost/speed/accuracy frontier.
-- `src/data/archyr/evaluation.ts` - trust, gates, and eval roadmap.
+- `src/data/archyr/evaluation.ts` - labeled evals, failure tests, trust gates, and improvement loop.
 - `src/data/archyr/sources.ts` - citation matrix and rubric coverage.
 
 ## Built With AI, Steered By Taste

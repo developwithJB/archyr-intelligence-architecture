@@ -6,6 +6,7 @@ import DataLayer from "@/components/sections/data-layer";
 import MemoryLearning from "@/components/sections/memory-learning";
 import SpeedAccuracyCost from "@/components/sections/speed-cost";
 import EvalTrust from "@/components/sections/eval-trust";
+import TrustReplay from "@/components/sections/trust-replay";
 import Skepticism from "@/components/sections/skepticism";
 import ArchitectureMap from "@/components/sections/architecture-map";
 import WorkflowDemo from "@/components/sections/workflow-demo";
@@ -17,16 +18,17 @@ export default function Home() {
       <SiteNav />
       <main>
         <HomeThesis />
+        <EvalTrust />
+        <TrustReplay />
+        <DataLayer />
+        <WorkflowDemo />
+        <AgentHarness />
+        <MemoryLearning />
+        <SourcesNotes />
         <ArchitectureRoutes />
         <ArchitectureMap />
-        <AgentHarness />
-        <DataLayer />
-        <MemoryLearning />
         <SpeedAccuracyCost />
-        <EvalTrust />
         <Skepticism />
-        <WorkflowDemo />
-        <SourcesNotes />
       </main>
     </div>
   );

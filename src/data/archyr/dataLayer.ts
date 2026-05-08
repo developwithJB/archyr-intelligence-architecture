@@ -42,6 +42,17 @@ export interface SourceVisibilityState {
   rule: string;
 }
 
+export interface EvidenceContractField {
+  field: string;
+  purpose: string;
+}
+
+export interface EvidenceVisibilityExample {
+  visibility: SourceVisibilityState["state"];
+  recommendationSurface: string;
+  backendRule: string;
+}
+
 export const dataLayerRecommendation = "Postgres-first, with derived search and graph indexes.";
 
 export const mvpVsFutureState: MvpFutureStatePlan[] = [
@@ -213,6 +224,71 @@ export const permissionAwareCitationRule =
 
 export const restrictedEvidenceReviewerCopy =
   "Evidence exists, but this viewer cannot inspect the source. Route to an authorized reviewer or downgrade confidence.";
+
+export const evidenceContractFields: EvidenceContractField[] = [
+  {
+    field: "claim_id",
+    purpose: "Stable identifier for the factual claim being used in scoring or memo output.",
+  },
+  {
+    field: "source_artifact_id",
+    purpose: "Immutable source object, email, transcript, deck, CRM note, or export that supports the claim.",
+  },
+  {
+    field: "source_span",
+    purpose: "Exact page, row, timestamp, line, or chunk range used as evidence.",
+  },
+  {
+    field: "visibility_state",
+    purpose: "Viewer-specific state: visible, restricted_internal, aggregate_only, or unavailable.",
+  },
+  {
+    field: "confidence",
+    purpose: "Calibrated score that includes extraction quality, source strength, recency, and conflicts.",
+  },
+  {
+    field: "freshness",
+    purpose: "Observed date and supersession state so stale claims do not masquerade as current truth.",
+  },
+  {
+    field: "permission_scope",
+    purpose: "Audience and role boundary that decides whether raw evidence can be shown.",
+  },
+  {
+    field: "reviewer_state",
+    purpose: "Pending, approved, rejected, or escalated status with actor and rationale.",
+  },
+];
+
+export const evidenceExampleClaim =
+  "Recommend deeper diligence because Lumenflow shows strong enterprise pull.";
+
+export const evidenceVisibilityExamples: EvidenceVisibilityExample[] = [
+  {
+    visibility: "visible",
+    recommendationSurface:
+      "Show the recommendation with direct citations, source spans, freshness, and confidence.",
+    backendRule: "Viewer can inspect raw evidence, so normal citation rendering is allowed.",
+  },
+  {
+    visibility: "restricted_internal",
+    recommendationSurface:
+      "Show that supporting evidence exists, hide private content, and route to an authorized reviewer or downgrade confidence.",
+    backendRule: "Private evidence can inform internal scoring but cannot be exposed as partner-facing proof.",
+  },
+  {
+    visibility: "aggregate_only",
+    recommendationSurface:
+      "Show aggregate confidence and source class, not the raw note, sender identity, or private quote.",
+    backendRule: "Use derived signal only; raw artifact remains hidden behind permission checks.",
+  },
+  {
+    visibility: "unavailable",
+    recommendationSurface:
+      "Block the factual citation, caveat the recommendation, and request follow-up retrieval.",
+    backendRule: "Unavailable evidence cannot support a factual claim in output.",
+  },
+];
 
 export const dataLifecycle: DataLifecycleNode[] = [
   {

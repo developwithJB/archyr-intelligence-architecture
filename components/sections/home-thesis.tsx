@@ -26,22 +26,22 @@ export default function HomeThesis() {
           </p>
           <div className="flex flex-wrap gap-2">
             <Link
-              href="#architecture-routes"
+              href="#evaluation-trust"
               className="rounded-full border border-[var(--accent)] bg-[var(--accent)] px-4 py-2 text-sm text-white transition hover:bg-[var(--accent)]/90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--focus)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--bg)]"
             >
-              Open architecture routes
+              Open eval strategy
             </Link>
             <Link
-              href="#speed-accuracy-cost"
+              href="#data-layer"
               className="rounded-full border border-[var(--line)] px-4 py-2 text-sm transition hover:bg-[var(--surface-muted)]"
             >
-              Open cost model
+              Open evidence contract
             </Link>
             <Link
               href="#workflow-demo"
               className="rounded-full border border-[var(--line)] px-4 py-2 text-sm transition hover:bg-[var(--surface-muted)]"
             >
-              Run workflow demo
+              Open backend runtime
             </Link>
           </div>
         </div>
@@ -51,12 +51,13 @@ export default function HomeThesis() {
             <CardContent>
               <CardTitle className="text-sm">Demo path</CardTitle>
               <ol className="mt-2 list-decimal space-y-1 pl-5 text-sm text-[var(--muted)]">
-                <li>Thesis</li>
-                <li>Eval program</li>
-                <li>Temporal memory</li>
-                <li>KnowledgeGateway + evidence</li>
-                <li>Batch sourcing workflow</li>
-                <li>Cost + sandbox controls</li>
+                <li>Evaluation strategy</li>
+                <li>Trust Replay</li>
+                <li>Trust and provenance</li>
+                <li>Backend runtime</li>
+                <li>Agent guardrails</li>
+                <li>Memory loop</li>
+                <li>Sources and rubric proof</li>
               </ol>
               <p className="mt-3 text-xs text-[var(--muted)]">
                 Built to be challenged in conversation, not read as a static memo.
@@ -67,7 +68,7 @@ export default function HomeThesis() {
             <CardContent>
               <CardTitle className="text-sm">Submission focus</CardTitle>
               <p className="mt-2 text-sm leading-6 text-[var(--muted)]">
-                This version emphasizes evals, temporal context, permission-aware evidence, and production failure controls.
+                This final pass emphasizes labeled evals, permission-aware evidence, reliable backend execution, and code-side agent guardrails.
               </p>
             </CardContent>
           </Card>
@@ -99,7 +100,7 @@ export default function HomeThesis() {
           variant="warning"
           className="border-[var(--line)] bg-[var(--surface-muted)]"
         >
-          Version 1 shipped before Monday call. Final polish and source hardening before Friday submission.
+          Final engineering feedback pass: evals, provenance, runtime, guardrails.
         </Badge>
       </div>
     </SectionShell>

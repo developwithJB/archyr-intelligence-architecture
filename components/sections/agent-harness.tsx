@@ -12,6 +12,8 @@ import {
   stackCompatibilityNote,
   subagentFailureContract,
   shellSandboxStance,
+  guardrailOwnership,
+  workerBudgets,
 } from "@/src/data/archyr/orchestration";
 
 export default function AgentHarness() {
@@ -100,6 +102,59 @@ export default function AgentHarness() {
         <p className="mt-1 text-xs text-[var(--muted)]">
           {skillStance.constraint}
         </p>
+      </div>
+
+      <div className="mt-4 grid gap-4 lg:grid-cols-[0.9fr_1.1fr]">
+        <Card>
+          <CardContent>
+            <CardTitle>Code vs prompt guardrails</CardTitle>
+            <div className="mt-3 space-y-2 text-sm text-[var(--muted)]">
+              {guardrailOwnership.map((item) => (
+                <div key={item.boundary} className="rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3">
+                  <p className="font-semibold text-[var(--text)]">{item.boundary}</p>
+                  <p className="mt-1 text-xs">
+                    <span className="font-semibold text-[var(--text)]">Code owns:</span> {item.codeOwns}
+                  </p>
+                  <p className="mt-1 text-xs">
+                    <span className="font-semibold text-[var(--text)]">Prompt owns:</span> {item.promptOwns}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent>
+            <CardTitle>Worker budget table</CardTitle>
+            <div className="mt-3 overflow-x-auto">
+              <table className="min-w-full border-separate border-spacing-0 text-left text-xs">
+                <thead className="text-[var(--muted)]">
+                  <tr>
+                    <th className="border-b border-[var(--line)] px-2 py-2 font-semibold">Worker</th>
+                    <th className="border-b border-[var(--line)] px-2 py-2 font-semibold">Tool calls</th>
+                    <th className="border-b border-[var(--line)] px-2 py-2 font-semibold">Timeout</th>
+                    <th className="border-b border-[var(--line)] px-2 py-2 font-semibold">Retries</th>
+                    <th className="border-b border-[var(--line)] px-2 py-2 font-semibold">Fallback</th>
+                    <th className="border-b border-[var(--line)] px-2 py-2 font-semibold">Failure handling</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {workerBudgets.map((item) => (
+                    <tr key={item.workerClass}>
+                      <td className="border-b border-[var(--line)] px-2 py-2 font-semibold text-[var(--text)]">{item.workerClass}</td>
+                      <td className="border-b border-[var(--line)] px-2 py-2 text-[var(--muted)]">{item.maxToolCalls}</td>
+                      <td className="border-b border-[var(--line)] px-2 py-2 text-[var(--muted)]">{item.timeout}</td>
+                      <td className="border-b border-[var(--line)] px-2 py-2 text-[var(--muted)]">{item.retryBudget}</td>
+                      <td className="border-b border-[var(--line)] px-2 py-2 text-[var(--text)]">{item.fallbackBehavior}</td>
+                      <td className="border-b border-[var(--line)] px-2 py-2 text-[var(--muted)]">{item.subagentFailureHandling}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          </CardContent>
+        </Card>
       </div>
 
       <div className="mt-4 grid gap-4 md:grid-cols-2">

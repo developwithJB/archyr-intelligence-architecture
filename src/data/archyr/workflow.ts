@@ -39,6 +39,22 @@ export interface BatchSourcingScenario {
   controls: BatchSourcingControl[];
 }
 
+export interface JobStatusStep {
+  status: string;
+  meaning: string;
+}
+
+export interface RuntimeEntity {
+  entity: string;
+  stores: string;
+  whyItMatters: string;
+}
+
+export interface WorkerControl {
+  control: string;
+  contract: string;
+}
+
 export const workflowModeExplanations: WorkflowModeExplanation[] = [
   {
     id: "fast",
@@ -93,6 +109,107 @@ export const batchSourcingScenario: BatchSourcingScenario = {
     { name: "DLQ", role: "Quarantine repeated failures for later replay and eval seed creation." },
   ],
 };
+
+export const jobStatusFlow: JobStatusStep[] = [
+  {
+    status: "queued",
+    meaning: "Work is accepted with an idempotency key, route, priority, and required source set.",
+  },
+  {
+    status: "leased",
+    meaning: "A worker owns the job for a bounded lease window so duplicate workers cannot commit twice.",
+  },
+  {
+    status: "running",
+    meaning: "The current attempt emits traces, tool calls, heartbeat state, and partial outputs.",
+  },
+  {
+    status: "blocked/retrying",
+    meaning: "The run is waiting on a dependency, human review, rate limit, or bounded retry budget.",
+  },
+  {
+    status: "succeeded",
+    meaning: "Outputs passed schema, evidence, permission, and publish gates.",
+  },
+  {
+    status: "failed",
+    meaning: "A terminal condition stopped the route with a typed failure envelope.",
+  },
+  {
+    status: "dlq",
+    meaning: "Repeated or unsafe failures are quarantined for replay, labeling, and eval seeding.",
+  },
+];
+
+export const runtimeEntities: RuntimeEntity[] = [
+  {
+    entity: "workflow_runs",
+    stores: "run id, route, actor, deal id, thesis version, status, cost, latency, trace id",
+    whyItMatters: "One durable row explains what happened and lets the team resume or replay.",
+  },
+  {
+    entity: "workflow_steps",
+    stores: "step id, worker class, input hash, output pointer, gate result, started and ended timestamps",
+    whyItMatters: "Each stage can be inspected without reading a giant agent transcript.",
+  },
+  {
+    entity: "job_attempts",
+    stores: "attempt number, lease owner, retry count, dependency, error envelope, next action",
+    whyItMatters: "Retries are bounded and explainable instead of hidden inside prompt loops.",
+  },
+  {
+    entity: "source_artifacts",
+    stores: "immutable source pointer, checksum, source class, owner, permission scope, observed date",
+    whyItMatters: "Generated claims can always point back to their raw evidence boundary.",
+  },
+  {
+    entity: "claims",
+    stores: "claim id, schema path, value, confidence, temporal bounds, reviewer state",
+    whyItMatters: "Facts are auditable records, not only sentences in a memo.",
+  },
+  {
+    entity: "evidence_links",
+    stores: "claim id, artifact id, source span, visibility state, freshness, source strength",
+    whyItMatters: "Citation and permission checks happen before rendering output.",
+  },
+  {
+    entity: "approvals",
+    stores: "actor, decision, diff, rationale, override reason, timestamp",
+    whyItMatters: "Human gates become durable learning and audit signals.",
+  },
+  {
+    entity: "eval_results",
+    stores: "eval case id, run id, metric, pass/fail, label, owner, regression status",
+    whyItMatters: "Production failures become measured improvement loops.",
+  },
+];
+
+export const workerControls: WorkerControl[] = [
+  {
+    control: "idempotency_key",
+    contract: "Derived from deal id, route, step, source hash, and thesis version before a worker starts.",
+  },
+  {
+    control: "lease_timeout",
+    contract: "Worker must heartbeat or the lease expires and the attempt is safely reassigned.",
+  },
+  {
+    control: "retry_count",
+    contract: "Retries are capped per dependency and failure class, then moved to DLQ or fallback.",
+  },
+  {
+    control: "dependency",
+    contract: "Every failure names the connector, model route, storage system, or sandbox boundary involved.",
+  },
+  {
+    control: "trace_id",
+    contract: "All tool calls, prompts, outputs, cost, and latency attach to one replayable trace.",
+  },
+  {
+    control: "next_action",
+    contract: "The orchestrator decides retry, fallback, escalate, block, or stop. The agent does not self-loop.",
+  },
+];
 
 export const workflowDemoSteps: WorkflowDemoStep[] = [
   {

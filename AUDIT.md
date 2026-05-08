@@ -2,7 +2,7 @@
 
 ## Overall status
 
-This artifact is ready to defend as a senior AI systems architecture submission. It is a runnable interactive app, not a static memo, and it now includes a citation matrix that ties the major architecture decisions to official docs, repositories, pricing pages, or papers.
+This artifact is ready to defend as a senior AI systems architecture submission. It is a runnable interactive app, not a static memo, and it now includes a citation matrix plus a final engineering-feedback pass across evals, provenance, backend runtime, and agent guardrails.
 
 Core thesis: Archyr should use deterministic, durable diligence workflows with bounded LLM workers, typed contracts, temporal memory, and eval gates. It should not be built as an autonomous agent swarm.
 
@@ -12,21 +12,30 @@ Core thesis: Archyr should use deterministic, durable diligence workflows with b
 | --- | ---: | --- | --- |
 | Shipping velocity | 20% | Covered | Next.js app with one-command local run, build scripts, and Codex build notes. |
 | Architectural taste | 20% | Covered | Clear recommendation: LangGraph + Pydantic AI + Postgres-first data layer + governed Claude Skills/MCP workers. |
-| Tradeoff reasoning | 20% | Covered | Cost envelopes, model routing, graph deferral triggers, KnowledgeGateway API, storage boundaries, and blast-radius controls. |
+| Tradeoff reasoning | 20% | Covered | Cost envelopes, model routing, graph deferral triggers, KnowledgeGateway API, storage boundaries, runtime controls, and blast-radius limits. |
 | Self-learning model | 15% | Covered | Feedback signals include cadence, update target, and approver; updates are eval-gated and versioned. |
-| Originality | 10% | Covered | Evidence contracts, permission-aware citations, temporal claim supersession, and skepticism of uncontrolled agent chains. |
+| Originality | 10% | Covered | Evidence contracts, permission-aware citations, temporal claim supersession, labeled eval loops, and skepticism of uncontrolled agent chains. |
 | Research depth | 15% | Covered | Source matrix covers named frameworks, meta-harnesses, memory systems, retrieval/eval tooling, pricing, and storage assumptions. |
 
 ## Decision area checklist
 
 | Decision area | Status | Notes |
 | --- | --- | --- |
-| Agent harness and orchestration | Covered | Compares Claude Agent SDK, LangGraph, CrewAI, OpenAI Swarm, Mastra, Pydantic AI, hand-rolled, Superpowers, Harness, Archon, and ECC. |
-| Multi-database backend and data layer | Covered | Explains Postgres-first canonical state, pgvector retrieval, object storage, DuckDB, Redis, optional graph, KnowledgeGateway, and Lumenflow entity resolution. |
+| Agent harness and orchestration | Covered | Compares Claude Agent SDK, LangGraph, CrewAI, OpenAI Swarm, Mastra, Pydantic AI, hand-rolled, Superpowers, Harness, Archon, and ECC; adds code-vs-prompt guardrails and worker budgets. |
+| Multi-database backend and data layer | Covered | Explains Postgres-first canonical state, pgvector retrieval, object storage, DuckDB, Redis, optional graph, KnowledgeGateway, Evidence Contract, and Lumenflow entity resolution. |
 | Memory and self-learning | Covered | Includes MemPalace, hierarchical memory skills, vector-only memory, HippoRAG, EM-LLM, Titans, Anthropic memory tooling, temporal validity, and update governance. |
-| Speed, accuracy, and cost | Covered | Covers four named workflows, model classes, prompt caching, fine-tuning policy, retrieval choices, and circuit breakers. |
-| Evaluation and trust | Covered | Includes day-one/day-90/day-365 evals, hard and soft gates, producer-reviewer loops, eval datasets, and the 95% eval trap. |
+| Speed, accuracy, and cost | Covered | Covers four named workflows, model classes, prompt caching, fine-tuning policy, retrieval choices, circuit breakers, and cost controls. |
+| Evaluation and trust | Covered | Includes labeled eval cases, failure-mode tests, day-one/day-90/day-365 evals, hard and soft gates, producer-reviewer loops, and the 95% eval trap. |
 | Skepticism | Covered | States a concrete overhyped pattern and underrated primitive, with operational kill switches and evidence contract checklist. |
+
+## Final engineering-feedback pass
+
+- Evaluation now leads the demo path and includes eight concrete labeled eval cases.
+- Failure-mode matrix ties seeded tests to pass signals and owners.
+- Eval-to-improvement loop shows how traces become labels, regressions, patches, champion/challenger runs, and gated promotions.
+- Trust/provenance now has an Evidence Contract with visibility states for visible, restricted internal, aggregate-only, and unavailable evidence.
+- Backend runtime now shows job status flow, runtime entities, worker controls, leases, retries, idempotency, and DLQ handling.
+- Agent harness now separates what belongs in code from what belongs in prompt, then caps workers with tool-call, timeout, retry, fallback, and subagent failure budgets.
 
 ## Research coverage
 
@@ -41,6 +50,7 @@ The Sources / Build Notes section now functions as the reviewer-facing evidence 
 ## UX readiness
 
 - The first screen states the thesis and final recommendation without forcing the reviewer to infer it.
+- The demo path starts with Evaluation, then Trust / Provenance, Backend Runtime, Agent Guardrails, Memory Loop, and Sources.
 - Architecture Routes defaults to the recommended route: Durable Workflow + Typed Intelligence Layer.
 - Sources are read-only, filterable by decision area and source type, and tied to explicit claims.
 - The app favors dense, navigable architecture content over marketing copy.
@@ -58,6 +68,8 @@ npm run build
 Recommended browser checks:
 
 - Open `http://localhost:3000`.
+- Confirm the first-click demo path starts with Evaluation and ends with Sources.
+- Confirm the labeled eval set, Evidence Contract, backend runtime flow, and worker budget table are visible.
 - Confirm Architecture Routes opens on Durable Workflow + Typed Intelligence Layer.
 - Filter Sources by each decision area.
 - Confirm all source links intended for review are present.
