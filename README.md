@@ -2,10 +2,9 @@
 
 Interactive architecture artifact for Archyr, an AI-native VC CRM diligence layer.
 
-**Live deployment:** [Vercel preview](https://archyr-intelligence-architecture-232maluhy-haus-havn.vercel.app)  
-**Local app:** [http://localhost:3000](http://localhost:3000)
+**Live deployment:** [https://archyr-intelligence-architecture.vercel.app](https://archyr-intelligence-architecture.vercel.app)
 
-> Note: the current Vercel project is team-protected. If the live URL asks for Vercel access, the local run below is the same app.
+**Local app:** [http://localhost:3000](http://localhost:3000)
 
 ## The Point
 
