@@ -38,17 +38,6 @@ Start here if you are reviewing the take-home:
 8. **Sources / Build Notes** - citation matrix and rubric coverage.
 9. **Architecture Routes** - why the durable typed workflow route wins.
 
-## Final Engineering Pass
-
-The final pass makes the production-readiness story sharper:
-
-- a small labeled eval set with concrete failure cases
-- a Trust Replay interaction that turns one AI claim into a visible gate decision
-- an evidence contract for private and permission-restricted sources
-- backend runtime shape for jobs, workers, retries, and DLQ handling
-- explicit agent guardrails for tool calls, timeouts, retries, and shell access
-- a demo path built for a lead engineer, not a general product tour
-
 ## What This Is
 
 This is a decision-architecture artifact: a clickable design doc built as an app.
