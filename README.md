@@ -97,7 +97,7 @@ npm run build
 - `src/data/archyr/evaluation.ts` - labeled evals, failure tests, trust gates, and improvement loop.
 - `src/data/archyr/sources.ts` - citation matrix and rubric coverage.
 
-## Built With AI, Steered By Taste
+## Built With AI, Steered By JB
 
 I used Codex to move fast on scaffolding, component structure, UI plumbing, and documentation passes.
 
