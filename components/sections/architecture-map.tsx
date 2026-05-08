@@ -6,8 +6,7 @@ import { architectureMapEdges, architectureMapNodes } from "@/src/data/archyr/ar
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 
-const mobileArrow = "↓";
-const desktopArrow = "→";
+const flowConnector = "↓";
 
 export default function ArchitectureMap() {
   const [activeNodeId, setActiveNodeId] = useState(architectureMapNodes[0]?.id ?? "inputs");
@@ -58,52 +57,57 @@ export default function ArchitectureMap() {
 
             {architectureMapNodes.length > 0 ? (
               <>
-                <div className="mt-3 hidden md:block">
-                  <div className="overflow-x-auto py-2">
-                    <div className="flex min-w-[820px] items-center gap-2">
-                      {architectureMapNodes.map((node, index) => (
-                        <div key={node.id} className="flex items-center gap-2">
+                <div className="mt-3 grid gap-2">
+                  {architectureMapNodes.map((node, index) => {
+                    const isActive = activeNodeId === node.id;
+                    return (
+                      <div key={node.id} className="grid gap-2">
                         <button
                           type="button"
                           onClick={() => setActiveNodeId(node.id)}
-                          className={`min-w-40 rounded-xl border p-3 text-left transition ${
-                            activeNodeId === node.id
-                                ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--text)]"
-                                : "border-[var(--line)] bg-[var(--surface-muted)]"
+                          className={`w-full rounded-xl border p-3 text-left transition ${
+                            isActive
+                              ? "border-blue-300/80 bg-[var(--accent)] text-white shadow-sm shadow-blue-950/20"
+                              : "border-[var(--line)] bg-[var(--surface-muted)]"
                           }`}
                         >
-                            <p className="text-xs font-semibold text-[var(--text)]">{node.title}</p>
-                          </button>
-                          {index < architectureMapNodes.length - 1 ? (
-                            <span className="text-2xl text-[var(--accent)]" aria-hidden="true">
-                              {desktopArrow}
+                          <span className="flex items-start gap-3">
+                            <span
+                              className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-[11px] font-semibold ${
+                                isActive
+                                  ? "border-white/40 bg-white/10 text-white"
+                                  : "border-[var(--line)] bg-[var(--surface)] text-[var(--muted)]"
+                              }`}
+                              aria-hidden="true"
+                            >
+                              {index + 1}
                             </span>
-                          ) : null}
-                        </div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="mt-3 grid gap-2 md:hidden">
-                  {architectureMapNodes.map((node, index) => (
-                    <div key={node.id}>
-                      <button
-                        type="button"
-                        onClick={() => setActiveNodeId(node.id)}
-                        className={`w-full rounded-xl border p-3 text-left transition ${
-                          activeNodeId === node.id
-                            ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--text)]"
-                            : "border-[var(--line)] bg-[var(--surface-muted)]"
-                        }`}
-                      >
-                        <p className="text-xs font-semibold text-[var(--text)]">{node.title}</p>
-                      </button>
-                      {index < architectureMapNodes.length - 1 ? (
-                        <p className="mx-auto my-1 text-center text-xl text-[var(--accent)]">{mobileArrow}</p>
-                      ) : null}
-                    </div>
-                  ))}
+                            <span className="min-w-0">
+                              <span
+                                className={`block text-sm font-semibold leading-6 ${
+                                  isActive ? "text-white" : "text-[var(--text)]"
+                                }`}
+                              >
+                                {node.title}
+                              </span>
+                              <span
+                                className={`mt-1 block text-xs leading-5 ${
+                                  isActive ? "text-blue-100" : "text-[var(--muted)]"
+                                }`}
+                              >
+                                {node.purpose}
+                              </span>
+                            </span>
+                          </span>
+                        </button>
+                        {index < architectureMapNodes.length - 1 ? (
+                          <p className="text-center text-lg leading-none text-[var(--accent)]" aria-hidden="true">
+                            {flowConnector}
+                          </p>
+                        ) : null}
+                      </div>
+                    );
+                  })}
                 </div>
 
                 <div className="mt-4 rounded-xl border border-[var(--line)] bg-[var(--surface-muted)] p-3 text-xs text-[var(--muted)]">

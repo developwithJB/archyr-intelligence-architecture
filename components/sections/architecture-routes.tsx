@@ -34,36 +34,40 @@ export default function ArchitectureRoutes() {
           ) : (
             architectureRouteCards.map((route) => {
               const isActive = route.id === activeRoute;
+              const activeTextClass = isActive ? "text-white" : "text-[var(--text)]";
+              const activeMutedClass = isActive ? "text-blue-100" : "text-[var(--muted)]";
               return (
                 <button
                   type="button"
                   key={route.id}
                   onClick={() => setActiveRoute(route.id)}
-                  className={`rounded-2xl border border-[var(--line)] text-left transition ${
+                  className={`rounded-2xl border text-left transition ${
                     isActive
-                      ? "border-[var(--accent)] bg-[var(--accent-soft)] text-[var(--text)]"
-                      : "bg-[var(--surface)]"
+                      ? "border-blue-300/80 bg-[var(--accent)] text-white shadow-md shadow-blue-950/20"
+                      : "border-[var(--line)] bg-[var(--surface)]"
                   }`}
                 >
                   <CardContent>
                     <div className="flex flex-wrap items-center justify-between gap-2">
-                      <CardTitle className="text-base">{route.title}</CardTitle>
-                      <Badge variant={isActive ? "success" : "outline"}>{route.verdict}</Badge>
+                      <CardTitle className={`text-base ${activeTextClass}`}>{route.title}</CardTitle>
+                      <Badge variant="outline" className={isActive ? "border-white/40 bg-white/10 text-white" : ""}>
+                        {route.verdict}
+                      </Badge>
                     </div>
-                    <p className="mt-2 text-sm text-[var(--muted)]">{route.bestFor}</p>
+                    <p className={`mt-2 text-sm ${activeMutedClass}`}>{route.bestFor}</p>
                     {isActive ? (
                       <div className="mt-3 grid gap-2 text-sm">
                         <div>
-                          <p className="font-semibold text-[var(--text)]">Core stack</p>
-                          <p className="text-[var(--muted)]">{route.coreStack.join(" · ")}</p>
+                          <p className="font-semibold text-white">Core stack</p>
+                          <p className="text-blue-100">{route.coreStack.join(" · ")}</p>
                         </div>
                         <div>
-                          <p className="font-semibold text-[var(--text)]">Why it works</p>
-                          <p className="text-[var(--muted)]">{route.whyItWorks.join(" · ")}</p>
+                          <p className="font-semibold text-white">Why it works</p>
+                          <p className="text-blue-100">{route.whyItWorks.join(" · ")}</p>
                         </div>
                         <div>
-                          <p className="font-semibold text-[var(--text)]">Verdict</p>
-                          <p className="text-[var(--muted)]">{route.verdict}</p>
+                          <p className="font-semibold text-white">Verdict</p>
+                          <p className="text-blue-100">{route.verdict}</p>
                         </div>
                       </div>
                     ) : null}
